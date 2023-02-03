@@ -65,6 +65,8 @@ public static class GameEvents
     public class FloatEvent : UnityEvent<float> { };
     public class Float4Event : UnityEvent<float, float, float, float> { };
     public class InputEvent : UnityEvent<Input> { };
+    public class IntEvent : UnityEvent<int> { };
+    public class Int4Event : UnityEvent<int, int, int, int> { };
 
     #endregion
 
@@ -89,4 +91,19 @@ public static class GameEvents
 
     public static UnityEvent ShowControls = new UnityEvent();
     public static UnityEvent HideControls = new UnityEvent();
+
+    public static Int4Event P1NewCode = new Int4Event();
+    public static Int4Event P2NewCode = new Int4Event();
+
+    public static IntEvent P1KeyPress = new IntEvent();
+    public static IntEvent P2KeyPress = new IntEvent();
+
+    public static IntEvent P1RightPress = new IntEvent();
+    public static IntEvent P2RightPress = new IntEvent();
+
+    public static IntEvent P1WrongPress = new IntEvent();
+    public static IntEvent P2WrongPress = new IntEvent();
+
+    public static UnityEvent P1WordCompleted = new UnityEvent();
+    public static UnityEvent P2WordCompleted = new UnityEvent();
 }

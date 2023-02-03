@@ -24,11 +24,6 @@ public class UIInput : MonoBehaviour
 
     void Update()
     {
-        movement.MoveDirection = input.Movement.Move.ReadValue<Vector2>();
-
-        //if (input.Movement.Dash.WasPressedThisFrame())
-        //    movement.DashRequested();
-
         if (input.UI.Up.WasPerformedThisFrame())
             ;
         else if (input.UI.Down.WasPerformedThisFrame())
