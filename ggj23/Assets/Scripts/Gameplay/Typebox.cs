@@ -52,12 +52,17 @@ public class Typebox : MonoBehaviour
     {
         if (typeboxLength < codeLength)
         {
-            for (int i = codeLength - 1; i >= codeLength - typeboxLength; i--)
+            for (int i = codeLength - typeboxLength; i < codeLength; i++)
             {
                 typeHistory[i - 1].sprite = typeHistory[i].sprite;
             }
-            typeHistory[codeLength - typeboxLength - 1].sprite = keyImages[key];
+
+            // Make the new one visible
             typeHistory[codeLength - typeboxLength - 1].color = new Vector4(1, 1, 1, 1);
+
+            // Place the newly pressed key
+            typeHistory[codeLength - 1].sprite = keyImages[key];
+
             typeboxLength++;
         }
         else
@@ -76,5 +81,15 @@ public class Typebox : MonoBehaviour
             typeHistory[i].color = new Vector4(1, 1, 1, 0);
 
         typeboxLength = 0;
+    }
+
+    void PrintFullTypebox()
+    {
+        print(
+            (typeHistory[0].sprite == null ? "#" : typeHistory[0].sprite.name) + " " +
+            (typeHistory[1].sprite == null ? "#" : typeHistory[1].sprite.name) + " " +
+            (typeHistory[2].sprite == null ? "#" : typeHistory[2].sprite.name) + " " +
+            (typeHistory[3].sprite == null ? "#" : typeHistory[3].sprite.name)
+        );
     }
 }
