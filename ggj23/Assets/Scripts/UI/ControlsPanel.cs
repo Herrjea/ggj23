@@ -28,7 +28,6 @@ public class ControlsPanel : MonoBehaviour
 
     void ShowControls()
     {
-        print("show");
         if (coroutine != null)
             StopCoroutine(coroutine);
         coroutine = StartCoroutine(MovePanel(rect.anchoredPosition, shownPosition, showAnimation));
@@ -36,7 +35,6 @@ public class ControlsPanel : MonoBehaviour
 
     void HideControls()
     {
-        print("hide");
         if (coroutine != null)
             StopCoroutine(coroutine);
         coroutine = StartCoroutine(MovePanel(rect.anchoredPosition, hiddenPosition, hideAnimation));

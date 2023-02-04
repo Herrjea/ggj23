@@ -15,8 +15,6 @@ public class SoundManager : MonoBehaviour
 	AudioClip wordCompleted;
 	AudioClip win;
 
-	string sfxFileExtension = ".m4a";
-
 
 	private void Awake()
 	{
@@ -31,10 +29,21 @@ public class SoundManager : MonoBehaviour
 
 		DontDestroyOnLoad(gameObject);
 
-		wrongPress = Resources.Load<AudioClip>("WrongPress" + sfxFileExtension);
-		rightPress = Resources.Load<AudioClip>("RightPress" + sfxFileExtension);
-		wordCompleted = Resources.Load<AudioClip>("WordCompleted" + sfxFileExtension);
-		win = Resources.Load<AudioClip>("Win" + sfxFileExtension);
+		wrongPress = Resources.Load<AudioClip>("SFX/WrongPress");
+		if (wrongPress == null)
+			print("Audio clip not found: wrongPress");
+
+		rightPress = Resources.Load<AudioClip>("SFX/RightPress");
+		if (rightPress == null)
+			print("Audio clip not found: rightPress");
+
+		wordCompleted = Resources.Load<AudioClip>("SFX/WordCompleted");
+		if (wordCompleted == null)
+			print("Audio clip not found: wordCompleted");
+
+		win = Resources.Load<AudioClip>("SFX/Win");
+		if (win == null)
+			print("Audio clip not found: win");
 
 		GameEvents.P1WrongPress.AddListener(WrongPress);
 		GameEvents.P1RightPress.AddListener(RightPress);
@@ -54,8 +63,6 @@ public class SoundManager : MonoBehaviour
 	{
 		MusicSource.clip = clip;
 		MusicSource.Play();
-
-		print("playing " + clip.name);
 	}
 
 
