@@ -15,8 +15,11 @@ public class CogeGeneration : MonoBehaviour
     {
         GameEvents.InputSet.AddListener(InputSet);
 
-        GameEvents.P1WordCompleted.AddListener(P1WordCompleted);
-        GameEvents.P2WordCompleted.AddListener(P2WordCompleted);
+        GameEvents.P1OwnWordCompleted.AddListener(P1WordCompleted);
+        GameEvents.P2EnemyWordCompleted.AddListener(P1WordCompleted);
+
+        GameEvents.P2OwnWordCompleted.AddListener(P2WordCompleted);
+        GameEvents.P1EnemyWordCompleted.AddListener(P2WordCompleted);
 
         code = new int[codeLength];
     }

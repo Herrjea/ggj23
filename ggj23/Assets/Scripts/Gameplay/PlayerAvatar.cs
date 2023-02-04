@@ -16,11 +16,13 @@ public class PlayerAvatar : MonoBehaviour
     {
         playerAvatarUI = transform.GetChild(1).GetComponent<Image>();
 
-        playerAvatars = new Sprite[levels];
-        for (int i = 0; i < levels; i++)
+        playerAvatars = new Sprite[levels + 1];
+        for (int i = 0; i < levels + 1; i++)
+        {
             playerAvatars[i] = Resources.Load<Sprite>("PlayerAvatars/PlayerAvatar" + i);
+        }
 
-        SetAvatar(0);
+        SetAvatar(globals.startingLevel);
 
         if (player == 1)
         {

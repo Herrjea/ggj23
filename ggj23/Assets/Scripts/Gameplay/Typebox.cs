@@ -7,9 +7,12 @@ public class Typebox : MonoBehaviour
 {
     [SerializeField] int player;
 
+    [SerializeField] Sprite[] keyImages;
+
     int codeLength = globals.codeLength;
 
     Image[] typeHistory;
+    int typeboxLength = 0;
 
 
     private void Awake()
@@ -17,10 +20,14 @@ public class Typebox : MonoBehaviour
         if (player == 1)
         {
             GameEvents.P1KeyPress.AddListener(KeyPress);
+            GameEvents.P1OwnWordCompleted.AddListener(ResetTypebox);
+            GameEvents.P1EnemyWordCompleted.AddListener(ResetTypebox);
         }
         else if (player == 2)
         {
             GameEvents.P2KeyPress.AddListener(KeyPress);
+            GameEvents.P2OwnWordCompleted.AddListener(ResetTypebox);
+            GameEvents.P2EnemyWordCompleted.AddListener(ResetTypebox);
         }
         else
             print("Undefined player number on object " + name + ": " + player);
@@ -29,13 +36,36 @@ public class Typebox : MonoBehaviour
         typeHistory = new Image[codeLength];
         for (int i = 0; i < codeLength; i++)
         {
-
+            typeHistory[i] = transform.GetChild(i).GetChild(0).GetComponent<Image>();
         }
+
+        ResetTypebox();
     }
 
 
     void KeyPress(int key)
     {
+        if (typeboxLength < codeLength)
+        {
+            typeHistory[typeboxLength].sprite = keyImages[key];
+            typeHistory[typeboxLength].color = new Vector4(1, 1, 1, 1);
+            typeboxLength++;
+        }
+        else
+        {
+            typeHistory[0].sprite = typeHistory[1].sprite;
+            typeHistory[1].sprite = typeHistory[2].sprite;
+            typeHistory[2].sprite = typeHistory[3].sprite;
+            typeHistory[3].sprite = keyImages[key];
+        }
+    }
 
+
+    void ResetTypebox()
+    {
+        for (int i = 0; i < codeLength; i++)
+            typeHistory[i].color = new Vector4(1, 1, 1, 0);
+
+        typeboxLength = 0;
     }
 }

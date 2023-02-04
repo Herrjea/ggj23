@@ -6,6 +6,6 @@ public class globals
 {
     public static int codeLength = 4;
 
-    public static int startingLevel = 0;
-    public static int maxLevel = 8;
+    public static int startingLevel = 3;
+    public static int maxLevel = 6;
 }
