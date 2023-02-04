@@ -7,7 +7,8 @@ public class Typebox : MonoBehaviour
 {
     [SerializeField] int player;
 
-    [SerializeField] Sprite[] keyImages;
+    Sprite[] keyImages;
+    int keyCount = globals.keyCount;
 
     int codeLength = globals.codeLength;
 
@@ -17,6 +18,10 @@ public class Typebox : MonoBehaviour
 
     private void Awake()
     {
+        keyImages = new Sprite[keyCount];
+        for (int i = 0; i < keyCount; i++)
+            keyImages[i] = Resources.Load<Sprite>("CodeKeys/Key" + i);
+
         if (player == 1)
         {
             GameEvents.P1KeyPress.AddListener(KeyPress);
@@ -47,8 +52,12 @@ public class Typebox : MonoBehaviour
     {
         if (typeboxLength < codeLength)
         {
-            typeHistory[typeboxLength].sprite = keyImages[key];
-            typeHistory[typeboxLength].color = new Vector4(1, 1, 1, 1);
+            for (int i = codeLength - 1; i >= codeLength - typeboxLength; i--)
+            {
+                typeHistory[i - 1].sprite = typeHistory[i].sprite;
+            }
+            typeHistory[codeLength - typeboxLength - 1].sprite = keyImages[key];
+            typeHistory[codeLength - typeboxLength - 1].color = new Vector4(1, 1, 1, 1);
             typeboxLength++;
         }
         else

@@ -12,7 +12,8 @@ public class CodePanel : MonoBehaviour
     GameObject[] wrongOutlines;
     GameObject[] rightOutlines;
 
-    [SerializeField] Sprite[] keyImages;
+    Sprite[] keyImages;
+    int keyCount = globals.keyCount;
 
     float removeOutlinesDuration = .5f;
     Coroutine waitCoroutine = null;
@@ -34,6 +35,10 @@ public class CodePanel : MonoBehaviour
             wrongOutlines[i].SetActive(false);
             code[i] = tmp.GetChild(2).GetComponent<Image>();
         }
+
+        keyImages = new Sprite[keyCount];
+        for (int i = 0; i < keyCount; i++)
+            keyImages[i] = Resources.Load<Sprite>("CodeKeys/Key" + i);
 
         if (player == 1)
         {

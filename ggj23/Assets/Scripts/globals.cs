@@ -8,4 +8,6 @@ public class globals
 
     public static int startingLevel = 3;
     public static int maxLevel = 6;
+
+    public static int keyCount = 4;
 }
