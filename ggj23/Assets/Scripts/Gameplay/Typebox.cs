@@ -20,7 +20,11 @@ public class Typebox : MonoBehaviour
     {
         keyImages = new Sprite[keyCount];
         for (int i = 0; i < keyCount; i++)
-            keyImages[i] = Resources.Load<Sprite>("CodeKeys/Key" + i);
+        {
+            keyImages[i] = Resources.Load<Sprite>("CodeKeys/P" + player + "Key" + i);
+            if (keyImages[i] == null)
+                print("Key image not found: " + "CodeKeys/P" + player + "Key" + i);
+        }
 
         if (player == 1)
         {
