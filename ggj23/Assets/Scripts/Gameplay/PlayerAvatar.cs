@@ -38,6 +38,6 @@ public class PlayerAvatar : MonoBehaviour
     void SetAvatar(int index)
     {
         playerAvatarUI.sprite = playerAvatars[index];
-        transform.localScale = Vector3.one * (1 + 0.15f * index);
+        transform.localScale = Vector3.one * (1 + 0.1f * index);
     }
 }
