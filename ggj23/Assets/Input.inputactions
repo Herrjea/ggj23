@@ -85,15 +85,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "test",
-                    "type": "Button",
-                    "id": "11f48e88-bc2a-4bec-ac37-90c19f55ddfd",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -122,7 +113,7 @@
                 {
                     "name": "",
                     "id": "2654e94a-ed87-4357-9413-ce53515fd3ab",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -133,7 +124,7 @@
                 {
                     "name": "",
                     "id": "e5bb1869-5fc6-45f1-9f8e-2e4a85d93554",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -144,7 +135,7 @@
                 {
                     "name": "",
                     "id": "2fbd9076-601e-4521-ac3f-320e03dea272",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -155,7 +146,7 @@
                 {
                     "name": "",
                     "id": "b6e3093e-b412-418e-96ab-585586699f42",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -204,17 +195,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "P2K4",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cf8b8c4f-68d5-4089-b327-b16a123b6fb1",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "test",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -107,15 +107,6 @@ public partial class @Input : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""test"",
-                    ""type"": ""Button"",
-                    ""id"": ""11f48e88-bc2a-4bec-ac37-90c19f55ddfd"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -144,7 +135,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2654e94a-ed87-4357-9413-ce53515fd3ab"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -155,7 +146,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e5bb1869-5fc6-45f1-9f8e-2e4a85d93554"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -166,7 +157,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2fbd9076-601e-4521-ac3f-320e03dea272"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -177,7 +168,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b6e3093e-b412-418e-96ab-585586699f42"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -226,17 +217,6 @@ public partial class @Input : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""P2K4"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cf8b8c4f-68d5-4089-b327-b16a123b6fb1"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""test"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -660,7 +640,6 @@ public partial class @Input : IInputActionCollection2, IDisposable
         m_Gameplay_P2K2 = m_Gameplay.FindAction("P2K2", throwIfNotFound: true);
         m_Gameplay_P2K3 = m_Gameplay.FindAction("P2K3", throwIfNotFound: true);
         m_Gameplay_P2K4 = m_Gameplay.FindAction("P2K4", throwIfNotFound: true);
-        m_Gameplay_test = m_Gameplay.FindAction("test", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Up = m_UI.FindAction("Up", throwIfNotFound: true);
@@ -742,7 +721,6 @@ public partial class @Input : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_P2K2;
     private readonly InputAction m_Gameplay_P2K3;
     private readonly InputAction m_Gameplay_P2K4;
-    private readonly InputAction m_Gameplay_test;
     public struct GameplayActions
     {
         private @Input m_Wrapper;
@@ -756,7 +734,6 @@ public partial class @Input : IInputActionCollection2, IDisposable
         public InputAction @P2K2 => m_Wrapper.m_Gameplay_P2K2;
         public InputAction @P2K3 => m_Wrapper.m_Gameplay_P2K3;
         public InputAction @P2K4 => m_Wrapper.m_Gameplay_P2K4;
-        public InputAction @test => m_Wrapper.m_Gameplay_test;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -793,9 +770,6 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 @P2K4.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnP2K4;
                 @P2K4.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnP2K4;
                 @P2K4.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnP2K4;
-                @test.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnTest;
-                @test.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnTest;
-                @test.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnTest;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -827,9 +801,6 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 @P2K4.started += instance.OnP2K4;
                 @P2K4.performed += instance.OnP2K4;
                 @P2K4.canceled += instance.OnP2K4;
-                @test.started += instance.OnTest;
-                @test.performed += instance.OnTest;
-                @test.canceled += instance.OnTest;
             }
         }
     }
@@ -958,7 +929,6 @@ public partial class @Input : IInputActionCollection2, IDisposable
         void OnP2K2(InputAction.CallbackContext context);
         void OnP2K3(InputAction.CallbackContext context);
         void OnP2K4(InputAction.CallbackContext context);
-        void OnTest(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
