@@ -41,12 +41,14 @@ public class CodePanel : MonoBehaviour
             GameEvents.P1RightPress.AddListener(RightPress);
             GameEvents.P1WrongPress.AddListener(WrongPress);
         }
-        else
+        else if (player == 2)
         {
             GameEvents.P2NewCode.AddListener(SetNewCode);
             GameEvents.P2RightPress.AddListener(RightPress);
             GameEvents.P2WrongPress.AddListener(WrongPress);
         }
+        else
+            print("Undefined player number on object " + name + ": " + player);
     }
 
 
@@ -69,6 +71,7 @@ public class CodePanel : MonoBehaviour
         if (waitCoroutine != null)
         {
             StopCoroutine(waitCoroutine);
+            waitCoroutine = null;
             RemoveOutlines();
         }
 
@@ -80,6 +83,7 @@ public class CodePanel : MonoBehaviour
         if (waitCoroutine != null)
         {
             StopCoroutine(waitCoroutine);
+            waitCoroutine = null;
             RemoveOutlines();
         }
 

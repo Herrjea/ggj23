@@ -106,4 +106,10 @@ public static class GameEvents
 
     public static UnityEvent P1WordCompleted = new UnityEvent();
     public static UnityEvent P2WordCompleted = new UnityEvent();
+
+    public static IntEvent P1LvlChange = new IntEvent();
+    public static IntEvent P2LvlChange = new IntEvent();
+
+    public static UnityEvent P1Wins = new UnityEvent();
+    public static UnityEvent P2Wins = new UnityEvent();
 }

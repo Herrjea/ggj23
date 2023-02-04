@@ -11,12 +11,15 @@ public class GameplayManager : MonoBehaviour
     int[] p1Code;
     int[] p2Code;
 
-    public int p1RightMatches = 0;
-    public int p2RightMatches = 0;
+    int p1RightMatches = 0;
+    int p2RightMatches = 0;
 
+    int p1lvl = globals.startingLevel;
+    int p2lvl = globals.startingLevel;
+    int maxLevel = globals.maxLevel;
     int codeLength = globals.codeLength;
 
-    [SerializeField] GameObject canvas;
+    [SerializeField] GameObject menuCanvas;
     [SerializeField] GameObject optionsPanel;
     [SerializeField] GameObject confirmLeavePanel;
     [SerializeField] Button optionsDefaultButton;
@@ -33,7 +36,7 @@ public class GameplayManager : MonoBehaviour
         GameEvents.InputSet.Invoke(input);
 
         confirmLeavePanel.SetActive(false);
-        canvas.SetActive(false);
+        menuCanvas.SetActive(false);
 
         p1Code = new int[codeLength];
         p2Code = new int[codeLength];
@@ -90,7 +93,7 @@ public class GameplayManager : MonoBehaviour
 
     void ShowMenu()
     {
-        canvas.SetActive(true);
+        menuCanvas.SetActive(true);
 
         optionsPanel.SetActive(true);
         optionsDefaultButton.Select();
@@ -104,7 +107,7 @@ public class GameplayManager : MonoBehaviour
 
     void HideMenu()
     {
-        canvas.SetActive(false);
+        menuCanvas.SetActive(false);
 
         input.Gameplay.Enable();
         input.UI.Disable();
@@ -142,6 +145,15 @@ public class GameplayManager : MonoBehaviour
             {
                 GameEvents.P1WordCompleted.Invoke();
                 p1RightMatches = 0;
+
+                p1lvl++;
+                if (p1lvl == maxLevel)
+                {
+                    GameEvents.P1Wins.Invoke();
+                    input.Gameplay.Disable();
+                }
+                else
+                    GameEvents.P1LvlChange.Invoke(p1lvl);
             }
         }
         else
@@ -163,6 +175,15 @@ public class GameplayManager : MonoBehaviour
             {
                 GameEvents.P2WordCompleted.Invoke();
                 p2RightMatches = 0;
+
+                p2lvl++;
+                if (p2lvl == maxLevel)
+                {
+                    GameEvents.P2Wins.Invoke();
+                    input.Gameplay.Disable();
+                }
+                else
+                    GameEvents.P2LvlChange.Invoke(p2lvl);
             }
         }
         else
