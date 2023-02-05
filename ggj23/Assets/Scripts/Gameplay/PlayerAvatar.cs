@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerAvatar : MonoBehaviour
 {
     [SerializeField] int player;
+    Animator animator;
 
     //Image playerAvatarUI;
     //Sprite[] playerAvatars;
@@ -14,6 +15,9 @@ public class PlayerAvatar : MonoBehaviour
 
     private void Awake()
     {
+        print(globals.maxLevel);
+
+        animator = GetComponent<Animator>();
         //playerAvatarUI = transform.GetChild(1).GetComponent<Image>();
 
         //playerAvatars = new Sprite[wedges + 1];
@@ -39,14 +43,57 @@ public class PlayerAvatar : MonoBehaviour
 
     void SetAvatar(int level)
     {
-        int wedge =
+        print("lvl " + level);
+
+        if (level == globals.maxLevel)
+        {
+            print("max lvl reached");
+            animator.SetTrigger("lvl8");
+            return;
+        }
+        else
+        {
+            int wedge =
             level % globals.stepsPerLevel == 0
             ?
             level / globals.stepsPerLevel
             :
             level / globals.stepsPerLevel + 1;
 
-        //playerAvatarUI.sprite = playerAvatars[wedge];
-        print("setting wedge " + wedge);
+            //playerAvatarUI.sprite = playerAvatars[wedge];
+            print("setting wedge " + wedge);
+
+            switch (wedge)
+            {
+                case 0:
+                    animator.SetTrigger("lvl7");
+                    break;
+                case 1:
+                    animator.SetTrigger("lvl6");
+                    break;
+                case 2:
+                    animator.SetTrigger("lvl5");
+                    break;
+                case 3:
+                    animator.SetTrigger("lvl4");
+                    break;
+                case 4:
+                    animator.SetTrigger("lvl3");
+                    break;
+                case 5:
+                    animator.SetTrigger("lvl2");
+                    break;
+                case 6:
+                    animator.SetTrigger("lvl1");
+                    break;
+                case 7:
+                    animator.SetTrigger("lvl0");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        
     }
 }

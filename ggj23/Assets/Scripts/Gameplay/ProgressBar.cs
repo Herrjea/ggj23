@@ -43,9 +43,6 @@ public class ProgressBar : MonoBehaviour
 
         P1LvlChange(globals.startingLevel);
         P2LvlChange(globals.startingLevel);
-
-
-        print(globals.stepsPerLevel);
     }
 
 
