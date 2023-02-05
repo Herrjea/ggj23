@@ -180,33 +180,6 @@ public class GameplayManager : MonoBehaviour
 
             ResetP1Typebox();
         }
-
-        //if (p1Code[p1RightMatches] == key)
-        //{
-        //    GameEvents.P1RightPress.Invoke(p1RightMatches);
-
-        //    p1RightMatches++;
-
-        //    if (p1RightMatches == codeLength)
-        //    {
-        //        GameEvents.P1WordCompleted.Invoke();
-        //        p1RightMatches = 0;
-
-        //        p1lvl++;
-        //        if (p1lvl == maxLevel)
-        //        {
-        //            GameEvents.P1Wins.Invoke();
-        //            input.Gameplay.Disable();
-        //        }
-        //        else
-        //            GameEvents.P1LvlChange.Invoke(p1lvl);
-        //    }
-        //}
-        //else
-        //{
-        //    GameEvents.P1WrongPress.Invoke(p1RightMatches);
-        //    p1RightMatches = 0;
-        //}
     }
 
     void P2KeyPress(int key)
@@ -247,33 +220,6 @@ public class GameplayManager : MonoBehaviour
 
             ResetP2Typebox();
         }
-
-        //if (p2Code[p2RightMatches] == key)
-        //{
-        //    GameEvents.P2RightPress.Invoke(p2RightMatches);
-
-        //    p2RightMatches++;
-
-        //    if (p2RightMatches == codeLength)
-        //    {
-        //        GameEvents.P2WordCompleted.Invoke();
-        //        p2RightMatches = 0;
-
-        //        p2lvl++;
-        //        if (p2lvl == maxLevel)
-        //        {
-        //            GameEvents.P2Wins.Invoke();
-        //            input.Gameplay.Disable();
-        //        }
-        //        else
-        //            GameEvents.P2LvlChange.Invoke(p2lvl);
-        //    }
-        //}
-        //else
-        //{
-        //    GameEvents.P2WrongPress.Invoke(p2RightMatches);
-        //    p2RightMatches = 0;
-        //}
     }
 
 

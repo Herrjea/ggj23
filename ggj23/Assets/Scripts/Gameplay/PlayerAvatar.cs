@@ -9,15 +9,15 @@ public class PlayerAvatar : MonoBehaviour
 
     Image playerAvatarUI;
     Sprite[] playerAvatars;
-    int levels = globals.maxLevel;
+    int wedges = globals.levelWedges;
 
 
     private void Awake()
     {
         playerAvatarUI = transform.GetChild(1).GetComponent<Image>();
 
-        playerAvatars = new Sprite[levels + 1];
-        for (int i = 0; i < levels + 1; i++)
+        playerAvatars = new Sprite[wedges + 1];
+        for (int i = 0; i < wedges + 1; i++)
         {
             playerAvatars[i] = Resources.Load<Sprite>("PlayerAvatars/PlayerAvatar" + i);
         }
@@ -37,9 +37,9 @@ public class PlayerAvatar : MonoBehaviour
     }
 
 
-    void SetAvatar(int index)
+    void SetAvatar(int level)
     {
-        playerAvatarUI.sprite = playerAvatars[index];
-        transform.localScale = Vector3.one * (1 + 0.1f * index);
+        playerAvatarUI.sprite = playerAvatars[level / globals.stepsPerLevel];
+        //print("setting level " + (level / globals.stepsPerLevel));
     }
 }

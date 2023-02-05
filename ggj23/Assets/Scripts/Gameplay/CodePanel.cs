@@ -18,6 +18,9 @@ public class CodePanel : MonoBehaviour
     float removeOutlinesDuration = .5f;
     Coroutine waitCoroutine = null;
 
+    float timeSinceLastStep = 0;
+    [SerializeField] float stepDuration = .4f;
+
 
     private void Awake()
     {

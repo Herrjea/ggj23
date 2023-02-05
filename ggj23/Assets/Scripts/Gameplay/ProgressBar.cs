@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
     GameObject[] p1Bar;
+    Material[] p1Materials;
     GameObject[] p2Bar;
+    Material[] p2Materials;
 
-    int maxLevel = globals.maxLevel;
+    int wedges = globals.levelWedges;
+
+    [SerializeField] Material a;
 
 
     private void Awake()
@@ -16,19 +21,24 @@ public class ProgressBar : MonoBehaviour
         GameEvents.P2LvlChange.AddListener(P2LvlChange);
 
         Transform tmp;
+        
 
-        p1Bar = new GameObject[maxLevel];
+        p1Bar = new GameObject[wedges];
+        p1Materials = new Material[wedges];
         tmp = transform.GetChild(0);
-        for (int i = 0; i < maxLevel; i++)
+        for (int i = 0; i < wedges; i++)
         {
-            p1Bar[i] = tmp.GetChild(maxLevel - i - 1).gameObject;
+            p1Bar[i] = tmp.GetChild(wedges - i - 1).gameObject;
+            p1Materials[i] = p1Bar[i].GetComponent<RawImage>().material;
         }
 
-        p2Bar = new GameObject[maxLevel];
+        p2Bar = new GameObject[wedges];
+        p2Materials = new Material[wedges];
         tmp = transform.GetChild(1);
-        for (int i = 0; i < maxLevel; i++)
+        for (int i = 0; i < wedges; i++)
         {
-            p2Bar[i] = tmp.GetChild(maxLevel - i - 1).gameObject;
+            p2Bar[i] = tmp.GetChild(wedges - i - 1).gameObject;
+            p2Materials[i] = p2Bar[i].GetComponent<RawImage>().material;
         }
 
         P1LvlChange(globals.startingLevel);
@@ -38,17 +48,81 @@ public class ProgressBar : MonoBehaviour
 
     void P1LvlChange(int lvl)
     {
-        for(int i = 0; i < maxLevel; i++)
+        for(int i = 0; i < wedges; i++)
         {
-            p1Bar[i].gameObject.SetActive(i < lvl);
+            if (i <= lvl / globals.stepsPerLevel)
+            {
+                p1Bar[i].gameObject.SetActive(true);
+                p1Materials[i].SetFloat("_Cutoff", 1);
+            }
+            else
+                p1Bar[i].gameObject.SetActive(false);
+
+        }
+
+
+        if (lvl % globals.stepsPerLevel != 0)
+        {
+            p1Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 1.0f / ((lvl) % globals.stepsPerLevel + 1));
+            //print(
+            //    "lvl " + lvl + ": " +
+            //    (lvl / globals.stepsPerLevel) +
+            //    " al " +
+            //    (1.0f / ((lvl) % globals.stepsPerLevel + 1))
+            //);
+        }
+        else
+        {
+            if (lvl / globals.stepsPerLevel < wedges)
+            {
+                p1Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 0.1f);
+                //print(
+                //    "lvl " + lvl + ": " +
+                //    (lvl / globals.stepsPerLevel) +
+                //    " al " +
+                //    (0.1f)
+                //);
+            }
         }
     }
 
     void P2LvlChange(int lvl)
     {
-        for (int i = 0; i < maxLevel; i++)
+        for (int i = 0; i < wedges; i++)
         {
-            p2Bar[i].gameObject.SetActive(i < lvl);
+            if (i <= lvl / globals.stepsPerLevel)
+            {
+                p2Bar[i].gameObject.SetActive(true);
+                p2Materials[i].SetFloat("_Cutoff", 1);
+            }
+            else
+                p2Bar[i].gameObject.SetActive(false);
+
+        }
+
+
+        if (lvl % globals.stepsPerLevel != 0)
+        {
+            p2Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 1.0f / ((lvl) % globals.stepsPerLevel + 1));
+            //print(
+            //    "lvl " + lvl + ": " +
+            //    (lvl / globals.stepsPerLevel) +
+            //    " al " +
+            //    (1.0f / ((lvl) % globals.stepsPerLevel + 1))
+            //);
+        }
+        else
+        {
+            if (lvl / globals.stepsPerLevel < wedges)
+            {
+                p2Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 0.1f);
+                //print(
+                //    "lvl " + lvl + ": " +
+                //    (lvl / globals.stepsPerLevel) +
+                //    " al " +
+                //    (0.1f)
+                //);
+            }
         }
     }
 }
