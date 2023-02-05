@@ -11,6 +11,7 @@ public class AvatarMovement : MonoBehaviour
     Vector3 moveToPosition;
 
     [SerializeField] Animator animator;
+    SpriteRenderer avatarRenderer;
 
     Vector3 step;
 
@@ -18,15 +19,25 @@ public class AvatarMovement : MonoBehaviour
 
     bool animationShouldCange = true;
 
+    bool gameFinished = false;
+
 
     private void Awake()
     {
         step = Vector3.right * moveSpeed;
+
+        avatarRenderer = animator.gameObject.GetComponent<SpriteRenderer>();
+
+        GameEvents.P1Wins.AddListener(Stop);
+        GameEvents.P2Wins.AddListener(Stop);
     }
 
 
     void Update()
     {
+        if (gameFinished)
+            return;
+
         if (animationShouldCange)
         {
             animationShouldCange = false;
@@ -54,8 +65,11 @@ public class AvatarMovement : MonoBehaviour
 
     IEnumerator WalkTowards()
     {
+        animator.SetBool("Walking", true);
+
         walking = true;
         bool walkingLeft = moveToPosition.x < transform.position.x;
+        avatarRenderer.flipX = !walkingLeft;
 
         while ((moveToPosition.x < transform.position.x) == walkingLeft)
         {
@@ -70,11 +84,19 @@ public class AvatarMovement : MonoBehaviour
 
     IEnumerator Idle()
     {
+        animator.SetBool("Walking", false);
+
         walking = false;
 
         yield return new WaitForSeconds(duration);
 
         animationShouldCange = true;
         yield return null;
+    }
+
+
+    void Stop()
+    {
+        gameFinished = true;
     }
 }

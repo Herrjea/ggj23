@@ -78,13 +78,13 @@ public class PlayerAvatar : MonoBehaviour
                     animator.SetTrigger("lvl4");
                     break;
                 case 4:
-                    animator.SetTrigger("lvl3");
-                    break;
-                case 5:
                     animator.SetTrigger("lvl2");
                     break;
-                case 6:
+                case 5:
                     animator.SetTrigger("lvl1");
+                    break;
+                case 6:
+                    animator.SetTrigger("lvl0");
                     break;
                 case 7:
                     animator.SetTrigger("lvl0");

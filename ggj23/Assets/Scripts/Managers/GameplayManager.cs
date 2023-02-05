@@ -24,9 +24,13 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] GameObject menuCanvas;
     [SerializeField] GameObject optionsPanel;
     [SerializeField] GameObject confirmLeavePanel;
+    [SerializeField] GameObject winPanel;
     [SerializeField] Button optionsDefaultButton;
     [SerializeField] Button optionsLeaveButton;
     [SerializeField] Button leaveDefaultButton;
+    [SerializeField] Button winDefaultButton;
+
+    [SerializeField] GameObject winLights;
 
 
     private void Awake()
@@ -55,6 +59,8 @@ public class GameplayManager : MonoBehaviour
 
         GameEvents.P1KeyPress.AddListener(P1KeyPress);
         GameEvents.P2KeyPress.AddListener(P2KeyPress);
+
+        winLights.SetActive(false);
     }
 
 
@@ -99,6 +105,11 @@ public class GameplayManager : MonoBehaviour
         optionsLeaveButton.Select();
     }
 
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene("Gameplay");
+    }
+
 
     void ShowMenu()
     {
@@ -107,6 +118,7 @@ public class GameplayManager : MonoBehaviour
         optionsPanel.SetActive(true);
         optionsDefaultButton.Select();
         confirmLeavePanel.SetActive(false);
+        winPanel.SetActive(false);
 
         input.Gameplay.Disable();
         input.UI.Enable();
@@ -162,7 +174,12 @@ public class GameplayManager : MonoBehaviour
             p1lvl++;
             GameEvents.P1LvlChange.Invoke(p1lvl);
             if (p1lvl == maxLevel)
+            {
+                winLights.SetActive(true);
                 GameEvents.P1Wins.Invoke();
+
+                ShowWinScreen();
+            }
             else
                 GameEvents.P1OwnWordCompleted.Invoke();
 
@@ -174,7 +191,12 @@ public class GameplayManager : MonoBehaviour
             p2lvl--;
             GameEvents.P2LvlChange.Invoke(p2lvl);
             if (p2lvl == 0)
+            {
+                winLights.SetActive(true);
                 GameEvents.P1Wins.Invoke();
+
+                ShowWinScreen();
+            }
             else
                 GameEvents.P1EnemyWordCompleted.Invoke();
 
@@ -202,7 +224,12 @@ public class GameplayManager : MonoBehaviour
             p2lvl++;
             GameEvents.P2LvlChange.Invoke(p2lvl);
             if (p2lvl == maxLevel)
+            {
                 GameEvents.P2Wins.Invoke();
+                winLights.SetActive(true);
+                winLights.transform.localScale = new Vector3(-1, 1, 1);
+                ShowWinScreen();
+            }
             else
                 GameEvents.P2OwnWordCompleted.Invoke();
 
@@ -214,7 +241,12 @@ public class GameplayManager : MonoBehaviour
             p1lvl--;
             GameEvents.P1LvlChange.Invoke(p1lvl);
             if (p1lvl == 0)
+            {
                 GameEvents.P2Wins.Invoke();
+                winLights.SetActive(true);
+                winLights.transform.localScale = new Vector3(-1, 1, 1);
+                ShowWinScreen();
+            }
             else
                 GameEvents.P2EnemyWordCompleted.Invoke();
 
@@ -254,5 +286,18 @@ public class GameplayManager : MonoBehaviour
         p2typed = 0;
         for (int i = 0; i < codeLength; i++)
             p2typeHistory[i] = -1;
+    }
+
+
+    void ShowWinScreen()
+    {
+        print("showing win screen");
+
+        menuCanvas.SetActive(true);
+        optionsPanel.SetActive(false);
+        confirmLeavePanel.SetActive(false);
+
+        winPanel.SetActive(true);
+        winDefaultButton.Select();
     }
 }
