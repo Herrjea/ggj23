@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e335971382af74d13bfe3be61de44597
+guid: 331187ffb1be740429da2bf68992626b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -68,7 +68,7 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
@@ -110,17 +110,17 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3df3143df532c4a00bd1dc3a4d5eafa1
-      internalID: 1696012876
+      spriteID: eeef053d570354238a2ef1e28116ca88
+      internalID: 1670637563
       vertices: []
       indices: 
       edges: []
@@ -129,19 +129,19 @@ TextureImporter:
       name: 7dance_1
       rect:
         serializedVersion: 2
-        x: 47
+        x: 128
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd336a44a83db48c9aae883a6ff92838
-      internalID: -1538873776
+      spriteID: c44811b10a6ce4b2294f5518875beeef
+      internalID: -528796098
       vertices: []
       indices: 
       edges: []
@@ -150,19 +150,19 @@ TextureImporter:
       name: 7dance_2
       rect:
         serializedVersion: 2
-        x: 94
+        x: 256
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eaf07dd8951014c06b939a95ac078beb
-      internalID: -90313541
+      spriteID: aa786947a1fda4857bb4a77fa268ae2d
+      internalID: 626511241
       vertices: []
       indices: 
       edges: []
@@ -171,19 +171,19 @@ TextureImporter:
       name: 7dance_3
       rect:
         serializedVersion: 2
-        x: 141
+        x: 384
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b71b8a799c8047cbba31a1809e1014c
-      internalID: 913391854
+      spriteID: e89d6e39e8a9e4844a215d996707f5b1
+      internalID: 1107758266
       vertices: []
       indices: 
       edges: []
@@ -199,10 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      7dance_3: 913391854
-      7dance_1: -1538873776
-      7dance_2: -90313541
-      7dance_0: 1696012876
+      7dance_3: 1107758266
+      7dance_1: -528796098
+      7dance_2: 626511241
+      7dance_0: 1670637563
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

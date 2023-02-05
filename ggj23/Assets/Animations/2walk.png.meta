@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 55339dbcfb80e4b65abc775a44a629c3
+guid: bf4156faae84b4f5ca5e653886784f91
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -68,7 +68,7 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
@@ -110,17 +110,17 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 52
-        height: 30
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c0b116258c6d4d488bf23890d8334d2
-      internalID: 630689547
+      spriteID: 5f4fdf5b4d47d43b7b63ee5f3e149d37
+      internalID: -446017475
       vertices: []
       indices: 
       edges: []
@@ -129,19 +129,19 @@ TextureImporter:
       name: 2walk_1
       rect:
         serializedVersion: 2
-        x: 52
+        x: 128
         y: 0
-        width: 52
-        height: 30
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc186f8d04b074b2f9cfdf1aa15c01da
-      internalID: 585779894
+      spriteID: 4c760b191322c43dbbc2bbdd382e21a2
+      internalID: -205576079
       vertices: []
       indices: 
       edges: []
@@ -150,19 +150,19 @@ TextureImporter:
       name: 2walk_2
       rect:
         serializedVersion: 2
-        x: 104
+        x: 256
         y: 0
-        width: 52
-        height: 30
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f0067fb8510c4d968a76b609e98babe
-      internalID: -201342617
+      spriteID: 69e3f0d2eb6e2487bbb57f45f3bffe6c
+      internalID: -409298720
       vertices: []
       indices: 
       edges: []
@@ -171,19 +171,19 @@ TextureImporter:
       name: 2walk_3
       rect:
         serializedVersion: 2
-        x: 156
+        x: 384
         y: 0
-        width: 52
-        height: 30
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad18a8f7af844482090199d8e6de0cbf
-      internalID: 830492438
+      spriteID: dff260c7d5b0443028c10e83aadb84ef
+      internalID: 1013739924
       vertices: []
       indices: 
       edges: []
@@ -199,10 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      2walk_0: 630689547
-      2walk_2: -201342617
-      2walk_3: 830492438
-      2walk_1: 585779894
+      2walk_0: -446017475
+      2walk_2: -409298720
+      2walk_3: 1013739924
+      2walk_1: -205576079
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

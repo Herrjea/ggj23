@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 24eae20ff10bf40d197fa941c94debc0
+guid: 7a9f06af287d94c1ab84df81709157c8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -68,7 +68,7 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
@@ -103,112 +103,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: 4walk_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 28
-        width: 69
-        height: 30
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fc0a5df0ed0cb42aaa199a64bdef3263
-      internalID: 2049735084
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 4walk_1
-      rect:
-        serializedVersion: 2
-        x: 69
-        y: 28
-        width: 69
-        height: 30
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6f4ba51f467134318b6b8c47b7e3fa7e
-      internalID: 194102425
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 4walk_2
-      rect:
-        serializedVersion: 2
-        x: 138
-        y: 28
-        width: 69
-        height: 30
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 99fb3018214d54b21931f423bce5c7b0
-      internalID: 789232889
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 4walk_3
-      rect:
-        serializedVersion: 2
-        x: 207
-        y: 28
-        width: 69
-        height: 30
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6923fd35a1354030a131f4a91001ada
-      internalID: 644857810
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 4walk_4
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 28
-        width: 69
-        height: 30
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e11aa22935ece4975aceb8ed4ce31376
-      internalID: 1523252128
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -219,12 +114,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      4walk_1: 194102425
-      4walk_0: 2049735084
-      4walk_3: 644857810
-      4walk_2: 789232889
-      4walk_4: 1523252128
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

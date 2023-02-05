@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 95e39b5b064cf40c1b924ee2171623f4
+guid: 502c5ca9cb3b842dda575bc13b5bfa84
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -68,7 +68,7 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
@@ -110,17 +110,17 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d78baa29f72454e159d800682cfa2883
-      internalID: -1500356099
+      spriteID: 29dcbbb3cbe704c478b44e2ce7706782
+      internalID: 1565282939
       vertices: []
       indices: 
       edges: []
@@ -129,19 +129,19 @@ TextureImporter:
       name: 8lose_1
       rect:
         serializedVersion: 2
-        x: 47
+        x: 128
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 688c105d16c66418cbbf7a9fae3dcc21
-      internalID: 1966455097
+      spriteID: 8c334f67f55da4f33a3a27f9296e78be
+      internalID: 14717850
       vertices: []
       indices: 
       edges: []
@@ -150,19 +150,19 @@ TextureImporter:
       name: 8lose_2
       rect:
         serializedVersion: 2
-        x: 94
+        x: 256
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29e76d8a7d799408e9da12fd10c1462a
-      internalID: 1546174042
+      spriteID: 3330a4294f2464f2f8b01fb7bc1ca0f6
+      internalID: -1413917661
       vertices: []
       indices: 
       edges: []
@@ -171,19 +171,19 @@ TextureImporter:
       name: 8lose_3
       rect:
         serializedVersion: 2
-        x: 141
+        x: 384
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d22af2a5ae33340ea843495657b1faae
-      internalID: -2091634532
+      spriteID: 823a17ef2e85a4fdcad9251ba5fd9efa
+      internalID: -398573140
       vertices: []
       indices: 
       edges: []
@@ -199,10 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      8lose_0: -1500356099
-      8lose_1: 1966455097
-      8lose_2: 1546174042
-      8lose_3: -2091634532
+      8lose_0: 1565282939
+      8lose_1: 14717850
+      8lose_2: -1413917661
+      8lose_3: -398573140
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

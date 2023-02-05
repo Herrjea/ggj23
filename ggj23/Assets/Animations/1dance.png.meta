@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d2f7dc99c84be4b8187b43d33ffff58d
+guid: 44404abce81ef4ef2913f21350cfcd30
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -68,7 +68,7 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
@@ -110,8 +110,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 38
-        height: 30
+        width: 128
+        height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 795a62d0065134ae5b39d750fa440e0a
-      internalID: 1133337629
+      spriteID: d5ad4ca310f1b4c84a1edd2ad751fa60
+      internalID: -260250831
       vertices: []
       indices: 
       edges: []
@@ -129,10 +129,10 @@ TextureImporter:
       name: 1dance_1
       rect:
         serializedVersion: 2
-        x: 38
+        x: 128
         y: 0
-        width: 38
-        height: 30
+        width: 128
+        height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f0fd6382b8d242ef824bf4b84c9bbd8
-      internalID: 1918549219
+      spriteID: 7f3edcb3573d44c11ac00ceffcafa4ff
+      internalID: -1512827308
       vertices: []
       indices: 
       edges: []
@@ -150,10 +150,10 @@ TextureImporter:
       name: 1dance_2
       rect:
         serializedVersion: 2
-        x: 76
+        x: 256
         y: 0
-        width: 38
-        height: 30
+        width: 128
+        height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,8 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f57ccb645912c4288ad98864655142cd
-      internalID: -762944200
+      spriteID: e6175654028724ddbad0846ff57e2ace
+      internalID: 346873934
       vertices: []
       indices: 
       edges: []
@@ -171,10 +171,10 @@ TextureImporter:
       name: 1dance_3
       rect:
         serializedVersion: 2
-        x: 114
+        x: 384
         y: 0
-        width: 38
-        height: 30
+        width: 128
+        height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18c60a433480142c294807639ade3854
-      internalID: -400439619
+      spriteID: 76371a65b7fb74076a7b75aaf4fb1b87
+      internalID: -1670165407
       vertices: []
       indices: 
       edges: []
@@ -199,10 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      1dance_1: 1918549219
-      1dance_0: 1133337629
-      1dance_2: -762944200
-      1dance_3: -400439619
+      1dance_1: -1512827308
+      1dance_0: -260250831
+      1dance_2: 346873934
+      1dance_3: -1670165407
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

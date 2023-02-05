@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cde41e6cb6a504dc0ad413014d63a21a
+guid: 1d151c238efa343aca5a932124de65ca
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -68,7 +68,7 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
@@ -110,17 +110,17 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c00b3d86114549d090472904ad50da8
-      internalID: 591402138
+      spriteID: a31e8dd816f244d6f970591ef0e9da00
+      internalID: 1318341191
       vertices: []
       indices: 
       edges: []
@@ -129,19 +129,19 @@ TextureImporter:
       name: 7walk_1
       rect:
         serializedVersion: 2
-        x: 47
+        x: 128
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e92362ad1eca446c8886d1a605a0336a
-      internalID: -983233337
+      spriteID: c26faa283639d46139bed826468308e4
+      internalID: 708178084
       vertices: []
       indices: 
       edges: []
@@ -150,19 +150,19 @@ TextureImporter:
       name: 7walk_2
       rect:
         serializedVersion: 2
-        x: 94
+        x: 256
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6342ac94ec6446c88ad8911a0b2b7ee
-      internalID: -1685006460
+      spriteID: c42d04819a4bb46c997e40954f309d33
+      internalID: -1050866372
       vertices: []
       indices: 
       edges: []
@@ -171,19 +171,19 @@ TextureImporter:
       name: 7walk_3
       rect:
         serializedVersion: 2
-        x: 141
+        x: 384
         y: 0
-        width: 47
-        height: 29
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        width: 128
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 87efe1bfd11914dfdba45d0a8a983c2a
-      internalID: -632930332
+      spriteID: 158d344448b7440b496887f2d70201d4
+      internalID: -325636128
       vertices: []
       indices: 
       edges: []
@@ -199,10 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      7walk_0: 591402138
-      7walk_1: -983233337
-      7walk_3: -632930332
-      7walk_2: -1685006460
+      7walk_0: 1318341191
+      7walk_1: 708178084
+      7walk_3: -325636128
+      7walk_2: -1050866372
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
