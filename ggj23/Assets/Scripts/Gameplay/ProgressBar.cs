@@ -43,6 +43,9 @@ public class ProgressBar : MonoBehaviour
 
         P1LvlChange(globals.startingLevel);
         P2LvlChange(globals.startingLevel);
+
+
+        print(globals.stepsPerLevel);
     }
 
 
@@ -63,19 +66,19 @@ public class ProgressBar : MonoBehaviour
 
         if (lvl % globals.stepsPerLevel != 0)
         {
-            p1Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 1.0f / ((lvl) % globals.stepsPerLevel + 1));
+            p1Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", NormalizeCutoff(1.0f / globals.stepsPerLevel * ((lvl) % globals.stepsPerLevel)));
             //print(
             //    "lvl " + lvl + ": " +
             //    (lvl / globals.stepsPerLevel) +
             //    " al " +
-            //    (1.0f / ((lvl) % globals.stepsPerLevel + 1))
+            //    1.0f / globals.stepsPerLevel * ((lvl) % globals.stepsPerLevel)
             //);
         }
         else
         {
             if (lvl / globals.stepsPerLevel < wedges)
             {
-                p1Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 0.1f);
+                p1Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 0f);
                 //print(
                 //    "lvl " + lvl + ": " +
                 //    (lvl / globals.stepsPerLevel) +
@@ -103,19 +106,19 @@ public class ProgressBar : MonoBehaviour
 
         if (lvl % globals.stepsPerLevel != 0)
         {
-            p2Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 1.0f / ((lvl) % globals.stepsPerLevel + 1));
+            p2Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", NormalizeCutoff(1.0f / globals.stepsPerLevel * ((lvl) % globals.stepsPerLevel)));
             //print(
             //    "lvl " + lvl + ": " +
             //    (lvl / globals.stepsPerLevel) +
             //    " al " +
-            //    (1.0f / ((lvl) % globals.stepsPerLevel + 1))
+            //    (1.0f / globals.stepsPerLevel * ((lvl) % globals.stepsPerLevel))
             //);
         }
         else
         {
             if (lvl / globals.stepsPerLevel < wedges)
             {
-                p2Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 0.1f);
+                p2Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 0f);
                 //print(
                 //    "lvl " + lvl + ": " +
                 //    (lvl / globals.stepsPerLevel) +
@@ -124,5 +127,13 @@ public class ProgressBar : MonoBehaviour
                 //);
             }
         }
+    }
+
+
+    float NormalizeCutoff(float cutoff)
+    {
+        float margin = 0.15f;
+
+        return cutoff * (1 - margin * 2) + margin;
     }
 }

@@ -9,13 +9,14 @@ public class UISpriteAnimation : MonoBehaviour
 
     [SerializeField] private Sprite[] sprites;
 
-    private Image image;
+    private SpriteRenderer imageRenderer;
     private int index = 0;
     private float timer = 0;
 
     void Start()
     {
-        image = GetComponent<Image>();
+        imageRenderer = GetComponent<SpriteRenderer>();
+        print(name + " " + sprites.Length);
     }
 
     private void Update()
@@ -23,7 +24,7 @@ public class UISpriteAnimation : MonoBehaviour
         if ((timer += Time.deltaTime) >= frameDuration)
         {
             timer = 0;
-            image.sprite = sprites[index];
+            imageRenderer.sprite = sprites[index];
             index = ++index % sprites.Length;
         }
     }

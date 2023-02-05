@@ -7,20 +7,20 @@ public class PlayerAvatar : MonoBehaviour
 {
     [SerializeField] int player;
 
-    Image playerAvatarUI;
-    Sprite[] playerAvatars;
+    //Image playerAvatarUI;
+    //Sprite[] playerAvatars;
     int wedges = globals.levelWedges;
 
 
     private void Awake()
     {
-        playerAvatarUI = transform.GetChild(1).GetComponent<Image>();
+        //playerAvatarUI = transform.GetChild(1).GetComponent<Image>();
 
-        playerAvatars = new Sprite[wedges + 1];
-        for (int i = 0; i < wedges + 1; i++)
-        {
-            playerAvatars[i] = Resources.Load<Sprite>("PlayerAvatars/PlayerAvatar" + i);
-        }
+        //playerAvatars = new Sprite[wedges + 1];
+        //for (int i = 0; i < wedges + 1; i++)
+        //{
+        //    playerAvatars[i] = Resources.Load<Sprite>("PlayerAvatars/PlayerAvatar" + i);
+        //}
 
         SetAvatar(globals.startingLevel);
 
@@ -39,7 +39,14 @@ public class PlayerAvatar : MonoBehaviour
 
     void SetAvatar(int level)
     {
-        playerAvatarUI.sprite = playerAvatars[level / globals.stepsPerLevel];
-        //print("setting level " + (level / globals.stepsPerLevel));
+        int wedge =
+            level % globals.stepsPerLevel == 0
+            ?
+            level / globals.stepsPerLevel
+            :
+            level / globals.stepsPerLevel + 1;
+
+        //playerAvatarUI.sprite = playerAvatars[wedge];
+        print("setting wedge " + wedge);
     }
 }
