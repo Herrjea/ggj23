@@ -16,7 +16,6 @@ public class UISpriteAnimation : MonoBehaviour
     void Start()
     {
         imageRenderer = GetComponent<SpriteRenderer>();
-        print(name + " " + sprites.Length);
     }
 
     private void Update()

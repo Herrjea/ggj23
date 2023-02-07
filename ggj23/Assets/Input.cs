@@ -107,6 +107,15 @@ public partial class @Input : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Any"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb5bf01c-0432-43b8-855a-c1f02c3286e4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -217,6 +226,17 @@ public partial class @Input : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""P2K4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""26fb5062-2242-4d82-9312-c502496b583d"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Any"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -640,6 +660,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
         m_Gameplay_P2K2 = m_Gameplay.FindAction("P2K2", throwIfNotFound: true);
         m_Gameplay_P2K3 = m_Gameplay.FindAction("P2K3", throwIfNotFound: true);
         m_Gameplay_P2K4 = m_Gameplay.FindAction("P2K4", throwIfNotFound: true);
+        m_Gameplay_Any = m_Gameplay.FindAction("Any", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Up = m_UI.FindAction("Up", throwIfNotFound: true);
@@ -721,6 +742,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_P2K2;
     private readonly InputAction m_Gameplay_P2K3;
     private readonly InputAction m_Gameplay_P2K4;
+    private readonly InputAction m_Gameplay_Any;
     public struct GameplayActions
     {
         private @Input m_Wrapper;
@@ -734,6 +756,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
         public InputAction @P2K2 => m_Wrapper.m_Gameplay_P2K2;
         public InputAction @P2K3 => m_Wrapper.m_Gameplay_P2K3;
         public InputAction @P2K4 => m_Wrapper.m_Gameplay_P2K4;
+        public InputAction @Any => m_Wrapper.m_Gameplay_Any;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -770,6 +793,9 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 @P2K4.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnP2K4;
                 @P2K4.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnP2K4;
                 @P2K4.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnP2K4;
+                @Any.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAny;
+                @Any.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAny;
+                @Any.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAny;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -801,6 +827,9 @@ public partial class @Input : IInputActionCollection2, IDisposable
                 @P2K4.started += instance.OnP2K4;
                 @P2K4.performed += instance.OnP2K4;
                 @P2K4.canceled += instance.OnP2K4;
+                @Any.started += instance.OnAny;
+                @Any.performed += instance.OnAny;
+                @Any.canceled += instance.OnAny;
             }
         }
     }
@@ -929,6 +958,7 @@ public partial class @Input : IInputActionCollection2, IDisposable
         void OnP2K2(InputAction.CallbackContext context);
         void OnP2K3(InputAction.CallbackContext context);
         void OnP2K4(InputAction.CallbackContext context);
+        void OnAny(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

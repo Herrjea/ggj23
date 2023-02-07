@@ -15,6 +15,8 @@ public class SoundManager : MonoBehaviour
 	AudioClip wordCompleted;
 	AudioClip win;
 
+	AudioClip mainTheme;
+
 
 	private void Awake()
 	{
@@ -31,19 +33,23 @@ public class SoundManager : MonoBehaviour
 
 		wrongPress = Resources.Load<AudioClip>("SFX/WrongPress");
 		if (wrongPress == null)
-			print("Audio clip not found: wrongPress");
+			print("Audio clip not found: WrongPress");
 
 		rightPress = Resources.Load<AudioClip>("SFX/RightPress");
 		if (rightPress == null)
-			print("Audio clip not found: rightPress");
+			print("Audio clip not found: RightPress");
 
 		wordCompleted = Resources.Load<AudioClip>("SFX/WordCompleted");
 		if (wordCompleted == null)
-			print("Audio clip not found: wordCompleted");
+			print("Audio clip not found: WordCompleted");
 
 		win = Resources.Load<AudioClip>("SFX/Win");
 		if (win == null)
-			print("Audio clip not found: win");
+			print("Audio clip not found: Win");
+
+		mainTheme = Resources.Load<AudioClip>("SFX/MainTheme");
+		if (mainTheme == null)
+			print("Audio clip not found: MainTheme");
 
 		GameEvents.P1WrongPress.AddListener(WrongPress);
 		GameEvents.P1RightPress.AddListener(RightPress);
@@ -52,6 +58,8 @@ public class SoundManager : MonoBehaviour
 		GameEvents.P2OwnWordCompleted.AddListener(WordCompleted);
 		GameEvents.P2EnemyWordCompleted.AddListener(WordCompleted);
 		GameEvents.P1Wins.AddListener(Win);
+
+		PlayMusic(mainTheme);
 	}
 
 

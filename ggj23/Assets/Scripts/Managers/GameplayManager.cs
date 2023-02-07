@@ -30,7 +30,14 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] Button leaveDefaultButton;
     [SerializeField] Button winDefaultButton;
 
-    [SerializeField] GameObject winLights;
+    [SerializeField] GameObject p1WinLights;
+    [SerializeField] GameObject p2WinLights;
+    GameObject winLights;
+
+
+    [SerializeField] float winWait = 3;
+    [SerializeField] float curtainFadeInDuration = 3;
+    [SerializeField] float menuShowupWait = 3;
 
 
     private void Awake()
@@ -60,7 +67,8 @@ public class GameplayManager : MonoBehaviour
         GameEvents.P1KeyPress.AddListener(P1KeyPress);
         GameEvents.P2KeyPress.AddListener(P2KeyPress);
 
-        winLights.SetActive(false);
+        p1WinLights.SetActive(false);
+        p2WinLights.SetActive(false);
     }
 
 
@@ -175,9 +183,9 @@ public class GameplayManager : MonoBehaviour
             GameEvents.P1LvlChange.Invoke(p1lvl);
             if (p1lvl == maxLevel)
             {
-                winLights.SetActive(true);
                 GameEvents.P1Wins.Invoke();
 
+                winLights = p1WinLights;
                 ShowWinScreen();
             }
             else
@@ -192,9 +200,9 @@ public class GameplayManager : MonoBehaviour
             GameEvents.P2LvlChange.Invoke(p2lvl);
             if (p2lvl == 0)
             {
-                winLights.SetActive(true);
                 GameEvents.P1Wins.Invoke();
 
+                winLights = p1WinLights;
                 ShowWinScreen();
             }
             else
@@ -226,8 +234,7 @@ public class GameplayManager : MonoBehaviour
             if (p2lvl == maxLevel)
             {
                 GameEvents.P2Wins.Invoke();
-                winLights.SetActive(true);
-                winLights.transform.localScale = new Vector3(-1, 1, 1);
+                winLights = p2WinLights;
                 ShowWinScreen();
             }
             else
@@ -243,8 +250,8 @@ public class GameplayManager : MonoBehaviour
             if (p1lvl == 0)
             {
                 GameEvents.P2Wins.Invoke();
-                winLights.SetActive(true);
-                winLights.transform.localScale = new Vector3(-1, 1, 1);
+
+                winLights = p2WinLights;
                 ShowWinScreen();
             }
             else
@@ -291,13 +298,33 @@ public class GameplayManager : MonoBehaviour
 
     void ShowWinScreen()
     {
-        print("showing win screen");
+        StartCoroutine(WinCoroutine());
+    }
+
+    IEnumerator WinCoroutine()
+    {
+        yield return new WaitForSeconds(winWait);
+
+        float t = 0;
+        CanvasGroup canvas = winLights.GetComponent<CanvasGroup>();
+        winLights.SetActive(true);
+        while (t < curtainFadeInDuration)
+        {
+            t += Time.deltaTime;
+            canvas.alpha = t / curtainFadeInDuration;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(menuShowupWait);
 
         menuCanvas.SetActive(true);
+
         optionsPanel.SetActive(false);
         confirmLeavePanel.SetActive(false);
 
         winPanel.SetActive(true);
         winDefaultButton.Select();
+
+        yield return null;
     }
 }

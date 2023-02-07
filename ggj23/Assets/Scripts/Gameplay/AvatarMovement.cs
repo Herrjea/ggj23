@@ -28,8 +28,8 @@ public class AvatarMovement : MonoBehaviour
 
         avatarRenderer = animator.gameObject.GetComponent<SpriteRenderer>();
 
-        GameEvents.P1Wins.AddListener(Stop);
-        GameEvents.P2Wins.AddListener(Stop);
+        GameEvents.P1Wins.AddListener(GameFinished);
+        GameEvents.P2Wins.AddListener(GameFinished);
     }
 
 
@@ -95,8 +95,16 @@ public class AvatarMovement : MonoBehaviour
     }
 
 
-    void Stop()
+    void GameFinished()
     {
         gameFinished = true;
+
+        // Make the avatar move to the center of its screen
+        moveToPosition = new Vector3(
+            (minX + maxX) / 2,
+            transform.position.y,
+            0
+        );
+        StartCoroutine(WalkTowards());
     }
 }

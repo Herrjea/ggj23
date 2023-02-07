@@ -28,7 +28,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void Controls()

@@ -8,23 +8,10 @@ public class PlayerAvatar : MonoBehaviour
     [SerializeField] int player;
     Animator animator;
 
-    //Image playerAvatarUI;
-    //Sprite[] playerAvatars;
-    int wedges = globals.levelWedges;
-
 
     private void Awake()
     {
-        print(globals.maxLevel);
-
         animator = GetComponent<Animator>();
-        //playerAvatarUI = transform.GetChild(1).GetComponent<Image>();
-
-        //playerAvatars = new Sprite[wedges + 1];
-        //for (int i = 0; i < wedges + 1; i++)
-        //{
-        //    playerAvatars[i] = Resources.Load<Sprite>("PlayerAvatars/PlayerAvatar" + i);
-        //}
 
         SetAvatar(globals.startingLevel);
 
@@ -43,25 +30,24 @@ public class PlayerAvatar : MonoBehaviour
 
     void SetAvatar(int level)
     {
-        print("lvl " + level);
+        //print("lvl " + level);
 
         if (level == globals.maxLevel)
         {
-            print("max lvl reached");
+            //print("max lvl reached");
             animator.SetTrigger("lvl8");
             return;
         }
         else
         {
             int wedge =
-            level % globals.stepsPerLevel == 0
-            ?
-            level / globals.stepsPerLevel
-            :
-            level / globals.stepsPerLevel + 1;
+                level % globals.stepsPerLevel == 0
+                ?
+                level / globals.stepsPerLevel
+                :
+                level / globals.stepsPerLevel + 1;
 
-            //playerAvatarUI.sprite = playerAvatars[wedge];
-            print("setting wedge " + wedge);
+            //print("setting wedge " + wedge);
 
             switch (wedge)
             {
