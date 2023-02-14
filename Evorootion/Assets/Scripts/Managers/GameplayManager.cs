@@ -86,6 +86,8 @@ public class GameplayManager : MonoBehaviour
     }
 
 
+    #region UI
+
     public void Resume()
     {
         HideMenu();
@@ -145,37 +147,76 @@ public class GameplayManager : MonoBehaviour
     }
 
 
-    void NewP1Code(int key1, int key2, int key3, int key4)
+    void ShowWinScreen()
     {
-        p1Code[0] = key1;
-        p1Code[1] = key2;
-        p1Code[2] = key3;
-        p1Code[3] = key4;
+        input.Gameplay.Disable();
+        input.UI.Enable();
+        StartCoroutine(WinCoroutine());
     }
 
-    void NewP2Code(int key1, int key2, int key3, int key4)
+    IEnumerator WinCoroutine()
     {
-        p2Code[0] = key1;
-        p2Code[1] = key2;
-        p2Code[2] = key3;
-        p2Code[3] = key4;
+        yield return new WaitForSeconds(winWait);
+
+        float t = 0;
+        CanvasGroup canvas = winLights.GetComponent<CanvasGroup>();
+        winLights.SetActive(true);
+        while (t < curtainFadeInDuration)
+        {
+            t += Time.deltaTime;
+            canvas.alpha = t / curtainFadeInDuration;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(menuShowupWait);
+
+        menuCanvas.SetActive(true);
+
+        optionsPanel.SetActive(false);
+        confirmLeavePanel.SetActive(false);
+
+        winPanel.SetActive(true);
+        winDefaultButton.Select();
+
+        yield return null;
+    }
+
+    #endregion
+
+    void NewP1Code(int[] code)
+    {
+        for (int i = 0; i < codeLength; i++)
+            p1Code[i] = code[i];
+    }
+
+    void NewP2Code(int[] code)
+    {
+        for (int i = 0; i < codeLength; i++)
+            p2Code[i] = code[i];
     }
 
 
     void P1KeyPress(int key)
     {
-        if (p1typed < codeLength)
-        {
-            p1typeHistory[p1typed] = key;
-            p1typed++;
-        }
-        else
-        {
-            p1typeHistory[0] = p1typeHistory[1];
-            p1typeHistory[1] = p1typeHistory[2];
-            p1typeHistory[2] = p1typeHistory[3];
-            p1typeHistory[3] = key;
-        }
+        //if (p1typed < codeLength)
+        //{
+        //    p1typeHistory[p1typed] = key;
+        //    p1typed++;
+        //}
+        //else
+        //{
+        //    p1typeHistory[0] = p1typeHistory[1];
+        //    p1typeHistory[1] = p1typeHistory[2];
+        //    p1typeHistory[2] = p1typeHistory[3];
+        //    p1typeHistory[3] = key;
+        //}
+
+        p1typeHistory[3] = p1typeHistory[2];
+        p1typeHistory[2] = p1typeHistory[1];
+        p1typeHistory[1] = p1typeHistory[0];
+        p1typeHistory[0] = key;
+
+        GameEvents.P1NewTypeHistory.Invoke(p1typeHistory);
 
         if (CheckAgainsP1(p1typeHistory))
         {
@@ -214,18 +255,25 @@ public class GameplayManager : MonoBehaviour
 
     void P2KeyPress(int key)
     {
-        if (p2typed < codeLength)
-        {
-            p2typeHistory[p2typed] = key;
-            p2typed++;
-        }
-        else
-        {
-            p2typeHistory[0] = p2typeHistory[1];
-            p2typeHistory[1] = p2typeHistory[2];
-            p2typeHistory[2] = p2typeHistory[3];
-            p2typeHistory[3] = key;
-        }
+        //if (p2typed < codeLength)
+        //{
+        //    p2typeHistory[p2typed] = key;
+        //    p2typed++;
+        //}
+        //else
+        //{
+        //    p2typeHistory[0] = p2typeHistory[1];
+        //    p2typeHistory[1] = p2typeHistory[2];
+        //    p2typeHistory[2] = p2typeHistory[3];
+        //    p2typeHistory[3] = key;
+        //}
+
+        p2typeHistory[3] = p2typeHistory[2];
+        p2typeHistory[2] = p2typeHistory[1];
+        p2typeHistory[1] = p2typeHistory[0];
+        p2typeHistory[0] = key;
+
+        GameEvents.P2NewTypeHistory.Invoke(p2typeHistory);
 
         if (CheckAgainsP2(p2typeHistory))
         {
@@ -265,7 +313,7 @@ public class GameplayManager : MonoBehaviour
     bool CheckAgainsP1(int[] code)
     {
         for (int i = 0; i < codeLength; i++)
-            if (code[i] != p1Code[i])
+            if (code[i] != p1Code[codeLength - i - 1])
                 return false;
 
         return true;
@@ -274,7 +322,7 @@ public class GameplayManager : MonoBehaviour
     bool CheckAgainsP2(int[] code)
     {
         for (int i = 0; i < codeLength; i++)
-            if (code[i] != p2Code[i])
+            if (code[i] != p2Code[codeLength - i - 1])
                 return false;
 
         return true;
@@ -286,6 +334,8 @@ public class GameplayManager : MonoBehaviour
         p1typed = 0;
         for (int i = 0; i < codeLength; i++)
             p1typeHistory[i] = -1;
+
+        GameEvents.P1NewTypeHistory.Invoke(p1typeHistory);
     }
 
     void ResetP2Typebox()
@@ -293,38 +343,8 @@ public class GameplayManager : MonoBehaviour
         p2typed = 0;
         for (int i = 0; i < codeLength; i++)
             p2typeHistory[i] = -1;
+
+        GameEvents.P2NewTypeHistory.Invoke(p2typeHistory);
     }
 
-
-    void ShowWinScreen()
-    {
-        StartCoroutine(WinCoroutine());
-    }
-
-    IEnumerator WinCoroutine()
-    {
-        yield return new WaitForSeconds(winWait);
-
-        float t = 0;
-        CanvasGroup canvas = winLights.GetComponent<CanvasGroup>();
-        winLights.SetActive(true);
-        while (t < curtainFadeInDuration)
-        {
-            t += Time.deltaTime;
-            canvas.alpha = t / curtainFadeInDuration;
-            yield return null;
-        }
-
-        yield return new WaitForSeconds(menuShowupWait);
-
-        menuCanvas.SetActive(true);
-
-        optionsPanel.SetActive(false);
-        confirmLeavePanel.SetActive(false);
-
-        winPanel.SetActive(true);
-        winDefaultButton.Select();
-
-        yield return null;
-    }
 }

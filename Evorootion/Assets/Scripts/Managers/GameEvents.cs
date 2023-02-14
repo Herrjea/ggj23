@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine.Events;
 
 //Clase estática que contiene los distintos eventos que pueden lanzarse en el juego
 public static class GameEvents
@@ -67,6 +64,7 @@ public static class GameEvents
     public class InputEvent : UnityEvent<Input> { };
     public class IntEvent : UnityEvent<int> { };
     public class Int4Event : UnityEvent<int, int, int, int> { };
+    public class IntArrayEvent : UnityEvent<int[]> { };
 
     #endregion
 
@@ -92,8 +90,11 @@ public static class GameEvents
     public static UnityEvent ShowControls = new UnityEvent();
     public static UnityEvent HideControls = new UnityEvent();
 
-    public static Int4Event P1NewCode = new Int4Event();
-    public static Int4Event P2NewCode = new Int4Event();
+    public static IntArrayEvent P1NewCode = new IntArrayEvent();
+    public static IntArrayEvent P2NewCode = new IntArrayEvent();
+
+    public static IntArrayEvent P1NewTypeHistory = new IntArrayEvent();
+    public static IntArrayEvent P2NewTypeHistory = new IntArrayEvent();
 
     public static IntEvent P1KeyPress = new IntEvent();
     public static IntEvent P2KeyPress = new IntEvent();

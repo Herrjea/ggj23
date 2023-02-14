@@ -40,21 +40,21 @@ public class CogeGeneration : MonoBehaviour
         }
 
         if (player == 1)
-            GameEvents.P1NewCode.Invoke(code[0], code[1], code[2], code[3]);
+            GameEvents.P1NewCode.Invoke(code);
         else
-            GameEvents.P2NewCode.Invoke(code[0], code[1], code[2], code[3]);
+            GameEvents.P2NewCode.Invoke(code);
     }
 
     void P1WordCompleted()
     {
         GenerateCodeFor(1);
-        GameEvents.P1NewCode.Invoke(code[0], code[1], code[2], code[3]);
+        GameEvents.P1NewCode.Invoke(code);
     }
 
     void P2WordCompleted()
     {
         GenerateCodeFor(2);
-        GameEvents.P2NewCode.Invoke(code[0], code[1], code[2], code[3]);
+        GameEvents.P2NewCode.Invoke(code);
     }
 
 

@@ -9,11 +9,13 @@ public class CodePanel : MonoBehaviour
 
     int codeLength = globals.codeLength;
     Image[] code;
-    GameObject[] wrongOutlines;
-    GameObject[] rightOutlines;
+    int[] intCode;
 
     Sprite[] keyImages;
     int keyCount = globals.keyCount;
+
+    Sprite bgDefault, bgPressed;
+    Image[] bg;
 
     float removeOutlinesDuration = .5f;
     Coroutine waitCoroutine = null;
@@ -24,59 +26,229 @@ public class CodePanel : MonoBehaviour
 
     private void Awake()
     {
+        keyImages = new Sprite[keyCount];
+        for (int i = 0; i < keyCount; i++)
+        {
+            keyImages[i] = Resources.Load<Sprite>("CodeKeys/Key" + i);
+            if (keyImages[i] == null)
+                print("Key image not found: " + "CodeKeys/Key" + i);
+        }
+
+        bgDefault = Resources.Load<Sprite>("CodeKeys/P" + player + "Bg");
+        if (bgDefault == null)
+            print("Key image not found: " + "CodeKeys/P" + player + "Bg");
+
+        bgPressed = Resources.Load<Sprite>("CodeKeys/P" + player + "BgPressed");
+        if (bgPressed == null)
+            print("Key image not found: " + "CodeKeys/P" + player + "BgPressed");
+
+
+        intCode = new int[codeLength];
+        ResetCode();
+
         code = new Image[codeLength];
-        wrongOutlines = new GameObject[codeLength];
-        rightOutlines = new GameObject[codeLength];
+        bg = new Image[codeLength];
 
         Transform tmp;
         for (int i = 0; i < codeLength; i++)
         {
             tmp = transform.GetChild(i);
-            rightOutlines[i] = tmp.GetChild(0).gameObject;
-            rightOutlines[i].SetActive(false);
-            wrongOutlines[i] = tmp.GetChild(1).gameObject;
-            wrongOutlines[i].SetActive(false);
-            code[i] = tmp.GetChild(2).GetComponent<Image>();
+
+            code[i] = tmp.GetChild(1).GetComponent<Image>();
+            bg[i] = tmp.GetChild(0).GetComponent<Image>();
+            bg[i].sprite = bgDefault;
         }
 
-        keyImages = new Sprite[keyCount];
-        for (int i = 0; i < keyCount; i++)
-        {
-            keyImages[i] = Resources.Load<Sprite>("CodeKeys/P" + player + "Key" + i);
-            if (keyImages[i] == null)
-                print("Key image not found: " + "CodeKeys/P" + player + "Key" + i);
-        }
-
+        
         if (player == 1)
         {
             GameEvents.P1NewCode.AddListener(SetNewCode);
             GameEvents.P1RightPress.AddListener(RightPress);
             GameEvents.P1WrongPress.AddListener(WrongPress);
+            GameEvents.P1NewTypeHistory.AddListener(NewTypeHistory);
         }
         else if (player == 2)
         {
             GameEvents.P2NewCode.AddListener(SetNewCode);
             GameEvents.P2RightPress.AddListener(RightPress);
             GameEvents.P2WrongPress.AddListener(WrongPress);
+            GameEvents.P2NewTypeHistory.AddListener(NewTypeHistory);
         }
         else
             print("Undefined player number on object " + name + ": " + player);
     }
 
 
-    void SetNewCode(int key1, int key2, int key3, int key4)
+    void SetNewCode(int[] newCode)
     {
-        code[0].sprite = keyImages[key1];
-        code[1].sprite = keyImages[key2];
-        code[2].sprite = keyImages[key3];
-        code[3].sprite = keyImages[key4];
-
         for (int i = 0; i < codeLength; i++)
         {
-            rightOutlines[i].SetActive(false);
-            wrongOutlines[i].SetActive(false);
+            code[i].sprite = keyImages[newCode[i]];
+            intCode[i] = newCode[i];
+            bg[i].sprite = bgDefault;
         }
     }
+
+    // Crappy code ahead
+    void NewTypeHistory(int[] pressed)
+    {
+        bool wellTyped = true;
+        bool[] debugWellTyped = new bool[4];
+
+        int[] reversed = ShiftAndReverse(pressed);
+
+        //for (int i = 0; i < codeLength; i++)
+        //{
+        //    if (reversed[i] == intCode[i] && wellTyped)
+        //    {
+        //        bg[i].sprite = bgPressed;
+        //        debugWellTyped[i] = true;
+        //    }
+        //    else
+        //    {
+        //        bg[i].sprite = bgDefault;
+        //        wellTyped = false;
+        //        debugWellTyped[i] = false;
+        //    }
+        //}
+
+        //print(name + " P" + player + ": " + debugWellTyped[0] + " " + debugWellTyped[1] + " " + debugWellTyped[2] + " " + debugWellTyped[3]);
+        //print("pressed: " + pressed[0] + " " + pressed[1] + " " + pressed[2] + " " + pressed[3]);
+        //print("reversed: " + reversed[0] + " " + reversed[1] + " " + reversed[2] + " " + reversed[3]);
+        //print("intCode: " + intCode[0] + " " + intCode[1] + " " + intCode[2] + " " + intCode[3]);
+
+        //int[] shifted = ShiftToTail(pressed);
+
+
+        // Check for 4 matches
+        if (
+            intCode[0] == reversed[0] &&
+            intCode[1] == reversed[1] &&
+            intCode[2] == reversed[2] &&
+            intCode[3] == reversed[3]
+        )
+        {
+            bg[0].sprite = bg[1].sprite = bg[2].sprite = bg[3].sprite = bgPressed;
+            return;
+        }
+
+        // Check for 3 matches
+        if (
+            intCode[0] == reversed[1] &&
+            intCode[1] == reversed[2] &&
+            intCode[2] == reversed[3]
+        )
+        {
+            bg[0].sprite = bg[1].sprite = bg[2].sprite = bgPressed;
+            bg[3].sprite = bgDefault;
+            return;
+        }
+
+        // Check for 2 matches
+        if (
+            intCode[0] == reversed[2] &&
+            intCode[1] == reversed[3]
+        )
+        {
+            bg[0].sprite = bg[1].sprite = bgPressed;
+            bg[2].sprite = bg[3].sprite = bgDefault;
+            return;
+        }
+
+        // Check for 1 match
+        if (
+            intCode[0] == reversed[3]
+        )
+        {
+            bg[0].sprite = bgPressed;
+            bg[1].sprite = bg[2].sprite = bg[3].sprite = bgDefault;
+            return;
+        }
+
+        bg[0].sprite = bg[1].sprite = bg[2].sprite = bg[3].sprite = bgDefault;
+    }
+
+    // Crappy code ahead
+    int[] ShiftAndReverse(int[] typeHistory)
+    {
+        int[] reversed = new int[codeLength];
+        for (int i = 0; i < codeLength; i++)
+            reversed[i] = -1;
+
+        if (typeHistory[0] == -1)
+        {
+            return reversed;
+        }
+
+        if (typeHistory[1] == -1)
+        {
+            reversed[3] = typeHistory[0];
+            return reversed;
+        }
+
+        if (typeHistory[2] == -1)
+        {
+            reversed[2] = typeHistory[1];
+            reversed[3] = typeHistory[0];
+            return reversed;
+        }
+
+        if (typeHistory[3] == -1)
+        {
+            reversed[1] = typeHistory[2];
+            reversed[2] = typeHistory[1];
+            reversed[3] = typeHistory[0];
+            return reversed;
+        }
+
+        reversed[0] = typeHistory[3];
+        reversed[1] = typeHistory[2];
+        reversed[2] = typeHistory[1];
+        reversed[3] = typeHistory[0];
+
+        return reversed;
+    }
+
+    //// Crappy code ahead
+    //int[] ShiftToTail(int[] typeHistory)
+    //{
+    //    int[] shifted = new int[codeLength];
+    //    for (int i = 0; i < codeLength; i++)
+    //        shifted[i] = -1;
+
+    //    if (typeHistory[0] == -1)
+    //    {
+    //        return shifted;
+    //    }
+
+    //    if (typeHistory[1] == -1)
+    //    {
+    //        shifted[3] = typeHistory[0];
+    //        return shifted;
+    //    }
+
+    //    if (typeHistory[2] == -1)
+    //    {
+    //        shifted[2] = typeHistory[0];
+    //        shifted[3] = typeHistory[1];
+    //        return shifted;
+    //    }
+
+    //    if (typeHistory[3] == -1)
+    //    {
+    //        shifted[1] = typeHistory[0];
+    //        shifted[2] = typeHistory[1];
+    //        shifted[3] = typeHistory[2];
+    //        return shifted;
+    //    }
+
+    //    shifted[0] = typeHistory[0];
+    //    shifted[1] = typeHistory[1];
+    //    shifted[2] = typeHistory[2];
+    //    shifted[3] = typeHistory[3];
+
+    //    return shifted;
+    //}
 
     void RightPress(int position)
     {
@@ -87,7 +259,7 @@ public class CodePanel : MonoBehaviour
             RemoveOutlines();
         }
 
-        rightOutlines[position].SetActive(true);
+        //rightOutlines[position].SetActive(true);
     }
 
     void WrongPress(int position)
@@ -99,11 +271,16 @@ public class CodePanel : MonoBehaviour
             RemoveOutlines();
         }
 
-        wrongOutlines[position].SetActive(true);
+        //wrongOutlines[position].SetActive(true);
 
         waitCoroutine = StartCoroutine(RemoveOutlinesCoroutine());
     }
 
+    void ResetCode()
+    {
+        for (int i = 0; i < codeLength; i++)
+            intCode[i] = -1;
+    }
 
     IEnumerator RemoveOutlinesCoroutine()
     {
@@ -118,8 +295,8 @@ public class CodePanel : MonoBehaviour
     {
         for (int i = 0; i < codeLength; i++)
         {
-            rightOutlines[i].SetActive(false);
-            wrongOutlines[i].SetActive(false);
+            //rightOutlines[i].SetActive(false);
+            //wrongOutlines[i].SetActive(false);
         }
     }
 }
