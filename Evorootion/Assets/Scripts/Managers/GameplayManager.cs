@@ -39,6 +39,8 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] float curtainFadeInDuration = 3;
     [SerializeField] float menuShowupWait = 3;
 
+    int winner = -1;
+
 
     private void Awake()
     {
@@ -171,11 +173,16 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(menuShowupWait);
 
         menuCanvas.SetActive(true);
-
         optionsPanel.SetActive(false);
         confirmLeavePanel.SetActive(false);
 
         winPanel.SetActive(true);
+        RectTransform rect = winPanel.GetComponent<RectTransform>();
+        Vector2 desiredPosition = new Vector2(1 - winner, 0.5f);
+        rect.anchorMin = desiredPosition;
+        rect.anchorMax = desiredPosition;
+        rect.pivot = desiredPosition;
+        rect.anchoredPosition = Vector3.zero;
         winDefaultButton.Select();
 
         yield return null;
@@ -227,6 +234,7 @@ public class GameplayManager : MonoBehaviour
                 GameEvents.P1Wins.Invoke();
 
                 winLights = p1WinLights;
+                winner = 0;
                 ShowWinScreen();
             }
             else
@@ -244,6 +252,7 @@ public class GameplayManager : MonoBehaviour
                 GameEvents.P1Wins.Invoke();
 
                 winLights = p1WinLights;
+                winner = 0;
                 ShowWinScreen();
             }
             else
@@ -283,6 +292,7 @@ public class GameplayManager : MonoBehaviour
             {
                 GameEvents.P2Wins.Invoke();
                 winLights = p2WinLights;
+                winner = 1;
                 ShowWinScreen();
             }
             else
@@ -300,6 +310,7 @@ public class GameplayManager : MonoBehaviour
                 GameEvents.P2Wins.Invoke();
 
                 winLights = p2WinLights;
+                winner = 1;
                 ShowWinScreen();
             }
             else
