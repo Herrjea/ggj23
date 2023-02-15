@@ -29,6 +29,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] Button optionsLeaveButton;
     [SerializeField] Button leaveDefaultButton;
     [SerializeField] Button winDefaultButton;
+    [SerializeField] TMPro.TextMeshProUGUI pointsText;
 
     [SerializeField] GameObject p1WinLights;
     [SerializeField] GameObject p2WinLights;
@@ -40,6 +41,9 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] float menuShowupWait = 3;
 
     int winner = -1;
+
+    public static int p1ConsecutiveVictories = 0;
+    public static int p2ConsecutiveVictories = 0;
 
 
     private void Awake()
@@ -151,6 +155,23 @@ public class GameplayManager : MonoBehaviour
 
     void ShowWinScreen()
     {
+        if (winner == 0)
+        {
+            p1ConsecutiveVictories++;
+
+            p2ConsecutiveVictories = 0;
+        }
+        else if (winner == 1)
+        {
+            p2ConsecutiveVictories++;
+            p1ConsecutiveVictories = 0;
+        }
+        else
+            print("Unrecognized winner id: " + winner);
+
+        int highestPoints = Mathf.Max(p1ConsecutiveVictories, p2ConsecutiveVictories);
+        pointsText.text = highestPoints + " win" + (highestPoints == 1 ? "!" : "s in a row!");
+
         input.Gameplay.Disable();
         input.UI.Enable();
         StartCoroutine(WinCoroutine());

@@ -14,6 +14,9 @@ public class TitleScreenManager : MonoBehaviour
     {
         input = new Input();
         input.Enable();
+
+        GameplayManager.p1ConsecutiveVictories = 0;
+        GameplayManager.p2ConsecutiveVictories = 0;
     }
 
 
