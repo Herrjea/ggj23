@@ -8,6 +8,8 @@ public class PlayerAvatar : MonoBehaviour
     [SerializeField] int player;
     Animator animator;
 
+    float platypusPlatychance = 0.05f;
+
 
     private void Awake()
     {
@@ -48,6 +50,13 @@ public class PlayerAvatar : MonoBehaviour
                 level / globals.stepsPerLevel + 1;
 
             //print("setting wedge " + wedge);
+
+            if (Random.Range(0.0f, 1.0f) < platypusPlatychance)
+            {
+
+                animator.SetTrigger("platypus");
+                return;
+            }
 
             switch (wedge)
             {
