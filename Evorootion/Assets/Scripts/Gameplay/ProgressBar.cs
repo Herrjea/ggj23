@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
     GameObject[] p1Bar;
-    Material[] p1Materials;
+    Image[] p1Images;
     GameObject[] p2Bar;
-    Material[] p2Materials;
+    Image[] p2Images;
 
     int wedges = globals.levelWedges;
 
@@ -22,21 +22,21 @@ public class ProgressBar : MonoBehaviour
         
 
         p1Bar = new GameObject[wedges];
-        p1Materials = new Material[wedges];
+        p1Images = new Image[wedges];
         tmp = transform.GetChild(0);
         for (int i = 0; i < wedges; i++)
         {
             p1Bar[i] = tmp.GetChild(wedges - i - 1).gameObject;
-            p1Materials[i] = p1Bar[i].GetComponent<RawImage>().material;
+            p1Images[i] = p1Bar[i].GetComponent<Image>();
         }
 
         p2Bar = new GameObject[wedges];
-        p2Materials = new Material[wedges];
+        p2Images = new Image[wedges];
         tmp = transform.GetChild(1);
         for (int i = 0; i < wedges; i++)
         {
             p2Bar[i] = tmp.GetChild(wedges - i - 1).gameObject;
-            p2Materials[i] = p2Bar[i].GetComponent<RawImage>().material;
+            p2Images[i] = p2Bar[i].GetComponent<Image>();
         }
 
         P1LvlChange(globals.startingLevel);
@@ -51,7 +51,7 @@ public class ProgressBar : MonoBehaviour
             if (i <= lvl / globals.stepsPerLevel)
             {
                 p1Bar[i].gameObject.SetActive(true);
-                p1Materials[i].SetFloat("_Cutoff", 1);
+                p1Images[i].fillAmount = 1;
             }
             else
                 p1Bar[i].gameObject.SetActive(false);
@@ -61,7 +61,8 @@ public class ProgressBar : MonoBehaviour
 
         if (lvl % globals.stepsPerLevel != 0)
         {
-            p1Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", NormalizeCutoff(1.0f / globals.stepsPerLevel * ((lvl) % globals.stepsPerLevel)));
+            p1Images[lvl / globals.stepsPerLevel].fillAmount =
+                NormalizeCutoff(1.0f / globals.stepsPerLevel * ((lvl) % globals.stepsPerLevel));
             //print(
             //    "lvl " + lvl + ": " +
             //    (lvl / globals.stepsPerLevel) +
@@ -73,7 +74,7 @@ public class ProgressBar : MonoBehaviour
         {
             if (lvl / globals.stepsPerLevel < wedges)
             {
-                p1Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 0f);
+                p1Images[lvl / globals.stepsPerLevel].fillAmount = 0;
                 //print(
                 //    "lvl " + lvl + ": " +
                 //    (lvl / globals.stepsPerLevel) +
@@ -91,7 +92,7 @@ public class ProgressBar : MonoBehaviour
             if (i <= lvl / globals.stepsPerLevel)
             {
                 p2Bar[i].gameObject.SetActive(true);
-                p2Materials[i].SetFloat("_Cutoff", 1);
+                p2Images[i].fillAmount = 1;
             }
             else
                 p2Bar[i].gameObject.SetActive(false);
@@ -101,7 +102,8 @@ public class ProgressBar : MonoBehaviour
 
         if (lvl % globals.stepsPerLevel != 0)
         {
-            p2Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", NormalizeCutoff(1.0f / globals.stepsPerLevel * ((lvl) % globals.stepsPerLevel)));
+            p2Images[lvl / globals.stepsPerLevel].fillAmount =
+                NormalizeCutoff(1.0f / globals.stepsPerLevel * ((lvl) % globals.stepsPerLevel));
             //print(
             //    "lvl " + lvl + ": " +
             //    (lvl / globals.stepsPerLevel) +
@@ -113,7 +115,7 @@ public class ProgressBar : MonoBehaviour
         {
             if (lvl / globals.stepsPerLevel < wedges)
             {
-                p2Materials[lvl / globals.stepsPerLevel].SetFloat("_Cutoff", 0f);
+                p2Images[lvl / globals.stepsPerLevel].fillAmount = 0;
                 //print(
                 //    "lvl " + lvl + ": " +
                 //    (lvl / globals.stepsPerLevel) +
