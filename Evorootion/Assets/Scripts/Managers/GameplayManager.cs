@@ -30,6 +30,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] Button leaveDefaultButton;
     [SerializeField] Button winDefaultButton;
     [SerializeField] TMPro.TextMeshProUGUI pointsText;
+    [SerializeField] TMPro.TextMeshProUGUI idleText;
 
     [SerializeField] GameObject p1WinLights;
     [SerializeField] GameObject p2WinLights;
@@ -42,8 +43,10 @@ public class GameplayManager : MonoBehaviour
 
     int winner = -1;
 
-    public static int p1ConsecutiveVictories = 0;
-    public static int p2ConsecutiveVictories = 0;
+    [HideInInspector] public static int p1ConsecutiveVictories = 0;
+    [HideInInspector] public static int p2ConsecutiveVictories = 0;
+
+    [SerializeField] float maxIdleTimeAfterWictory;
 
 
     private void Awake()
@@ -174,6 +177,7 @@ public class GameplayManager : MonoBehaviour
 
         input.Gameplay.Disable();
         input.UI.Enable();
+        idleText.gameObject.SetActive(false);
         StartCoroutine(WinCoroutine());
     }
 
@@ -205,6 +209,17 @@ public class GameplayManager : MonoBehaviour
         rect.pivot = desiredPosition;
         rect.anchoredPosition = Vector3.zero;
         winDefaultButton.Select();
+
+        yield return new WaitForSeconds(maxIdleTimeAfterWictory);
+
+        idleText.gameObject.SetActive(true);
+        for (int i = 10; i >= 0; i--)
+        {
+            idleText.text = "Leaving in " + i + "...";
+            yield return new WaitForSeconds(2);
+        }
+
+        ConfirmLeave();
 
         yield return null;
     }
