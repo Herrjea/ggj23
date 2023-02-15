@@ -12,8 +12,6 @@ public class ProgressBar : MonoBehaviour
 
     int wedges = globals.levelWedges;
 
-    [SerializeField] Material a;
-
 
     private void Awake()
     {

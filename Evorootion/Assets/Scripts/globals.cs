@@ -6,7 +6,7 @@ public class globals
 {
     public static int codeLength = 4;
 
-    public static int levelWedges = 6;
+    public static int levelWedges = 7;
     public static int stepsPerLevel = 2;
     public static int maxLevel = levelWedges * stepsPerLevel;
     public static int startingLevel = maxLevel / 2;
