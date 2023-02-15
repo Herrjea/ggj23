@@ -17,6 +17,9 @@ public class CodePanel : MonoBehaviour
     Sprite bgDefault, bgPressed;
     Image[] bg;
 
+    Sprite enemyMarkDefault, enemyMarkTyped;
+    Image[] enemyMark;
+
     float removeOutlinesDuration = .5f;
     Coroutine waitCoroutine = null;
 
@@ -42,19 +45,32 @@ public class CodePanel : MonoBehaviour
         if (bgPressed == null)
             print("Key image not found: " + "CodeKeys/P" + player + "BgPressed");
 
+        enemyMarkDefault = Resources.Load<Sprite>("CodeKeys/P" + player + "Bg");
+        if (enemyMarkDefault == null)
+            print("Key image not found: " + "CodeKeys/P" + player + "Bg");
+
+        enemyMarkTyped = Resources.Load<Sprite>("CodeKeys/P" + (3 - player) + "Bg");
+        if (enemyMarkTyped == null)
+            print("Key image not found: " + "CodeKeys/P" + player + "Bg");
+
 
         intCode = new int[codeLength];
         ResetCode();
 
         code = new Image[codeLength];
         bg = new Image[codeLength];
+        enemyMark = new Image[codeLength];
 
         Transform tmp;
         for (int i = 0; i < codeLength; i++)
         {
             tmp = transform.GetChild(i);
 
+            enemyMark[i] = tmp.GetChild(2).GetComponent<Image>();
+            enemyMark[i].sprite = enemyMarkDefault;
+
             code[i] = tmp.GetChild(1).GetComponent<Image>();
+
             bg[i] = tmp.GetChild(0).GetComponent<Image>();
             bg[i].sprite = bgDefault;
         }
@@ -65,14 +81,16 @@ public class CodePanel : MonoBehaviour
             GameEvents.P1NewCode.AddListener(SetNewCode);
             GameEvents.P1RightPress.AddListener(RightPress);
             GameEvents.P1WrongPress.AddListener(WrongPress);
-            GameEvents.P1NewTypeHistory.AddListener(NewTypeHistory);
+            GameEvents.P1NewTypeHistory.AddListener(NewOwnTypeHistory);
+            GameEvents.P2NewTypeHistory.AddListener(NewEnemyTypeHistory);
         }
         else if (player == 2)
         {
             GameEvents.P2NewCode.AddListener(SetNewCode);
             GameEvents.P2RightPress.AddListener(RightPress);
             GameEvents.P2WrongPress.AddListener(WrongPress);
-            GameEvents.P2NewTypeHistory.AddListener(NewTypeHistory);
+            GameEvents.P2NewTypeHistory.AddListener(NewOwnTypeHistory);
+            GameEvents.P1NewTypeHistory.AddListener(NewEnemyTypeHistory);
         }
         else
             print("Undefined player number on object " + name + ": " + player);
@@ -86,16 +104,17 @@ public class CodePanel : MonoBehaviour
             code[i].sprite = keyImages[newCode[i]];
             intCode[i] = newCode[i];
             bg[i].sprite = bgDefault;
+            enemyMark[i].sprite = enemyMarkDefault;
         }
     }
 
-    // Crappy code ahead
-    void NewTypeHistory(int[] pressed)
+    
+    void NewOwnTypeHistory(int[] pressed)
     {
-        bool wellTyped = true;
-        bool[] debugWellTyped = new bool[4];
+        CheckCode(pressed, bg, bgDefault, bgPressed);
 
-        int[] reversed = ShiftAndReverse(pressed);
+        //bool wellTyped = true;
+        //bool[] debugWellTyped = new bool[4];
 
         //for (int i = 0; i < codeLength; i++)
         //{
@@ -118,7 +137,44 @@ public class CodePanel : MonoBehaviour
         //print("intCode: " + intCode[0] + " " + intCode[1] + " " + intCode[2] + " " + intCode[3]);
 
         //int[] shifted = ShiftToTail(pressed);
+    }
 
+    void NewEnemyTypeHistory(int[] pressed)
+    {
+        CheckCode(pressed, enemyMark, enemyMarkDefault, enemyMarkTyped);
+
+        //bool wellTyped = true;
+        //bool[] debugWellTyped = new bool[4];
+
+        //for (int i = 0; i < codeLength; i++)
+        //{
+        //    if (reversed[i] == intCode[i] && wellTyped)
+        //    {
+        //        bg[i].sprite = bgPressed;
+        //        debugWellTyped[i] = true;
+        //    }
+        //    else
+        //    {
+        //        bg[i].sprite = bgDefault;
+        //        wellTyped = false;
+        //        debugWellTyped[i] = false;
+        //    }
+        //}
+
+        //print(name + " P" + player + ": " + debugWellTyped[0] + " " + debugWellTyped[1] + " " + debugWellTyped[2] + " " + debugWellTyped[3]);
+        //print("pressed: " + pressed[0] + " " + pressed[1] + " " + pressed[2] + " " + pressed[3]);
+        //print("reversed: " + reversed[0] + " " + reversed[1] + " " + reversed[2] + " " + reversed[3]);
+        //print("intCode: " + intCode[0] + " " + intCode[1] + " " + intCode[2] + " " + intCode[3]);
+
+        //int[] shifted = ShiftToTail(pressed);
+    }
+
+    // Crappy code ahead.
+    // found a way to parametrize it and make it way smarter in way fewer lines,
+    // but was completely unreadable.
+    void CheckCode(int[] pressed, Image[] image, Sprite defaultSprite, Sprite pressedSprite)
+    {
+        int[] reversed = ShiftAndReverse(pressed);
 
         // Check for 4 matches
         if (
@@ -128,7 +184,7 @@ public class CodePanel : MonoBehaviour
             intCode[3] == reversed[3]
         )
         {
-            bg[0].sprite = bg[1].sprite = bg[2].sprite = bg[3].sprite = bgPressed;
+            image[0].sprite = image[1].sprite = image[2].sprite = image[3].sprite = pressedSprite;
             return;
         }
 
@@ -139,8 +195,8 @@ public class CodePanel : MonoBehaviour
             intCode[2] == reversed[3]
         )
         {
-            bg[0].sprite = bg[1].sprite = bg[2].sprite = bgPressed;
-            bg[3].sprite = bgDefault;
+            image[0].sprite = image[1].sprite = image[2].sprite = pressedSprite;
+            image[3].sprite = defaultSprite;
             return;
         }
 
@@ -150,8 +206,8 @@ public class CodePanel : MonoBehaviour
             intCode[1] == reversed[3]
         )
         {
-            bg[0].sprite = bg[1].sprite = bgPressed;
-            bg[2].sprite = bg[3].sprite = bgDefault;
+            image[0].sprite = image[1].sprite = pressedSprite;
+            image[2].sprite = image[3].sprite = defaultSprite;
             return;
         }
 
@@ -160,13 +216,22 @@ public class CodePanel : MonoBehaviour
             intCode[0] == reversed[3]
         )
         {
-            bg[0].sprite = bgPressed;
-            bg[1].sprite = bg[2].sprite = bg[3].sprite = bgDefault;
+            image[0].sprite = pressedSprite;
+            image[1].sprite = image[2].sprite = image[3].sprite = defaultSprite;
             return;
         }
 
-        bg[0].sprite = bg[1].sprite = bg[2].sprite = bg[3].sprite = bgDefault;
+        image[0].sprite = image[1].sprite = image[2].sprite = image[3].sprite = defaultSprite;
     }
+
+    //bool CheckForMatches(int n, int[] code, int[] reversed)
+    //{
+    //    for (int i = 0; i < n; i++)
+    //        if (code[i] != reversed[codeLength - n + i])
+    //            return false;
+
+    //    return true;
+    //}
 
     // Crappy code ahead
     int[] ShiftAndReverse(int[] typeHistory)
@@ -209,46 +274,6 @@ public class CodePanel : MonoBehaviour
         return reversed;
     }
 
-    //// Crappy code ahead
-    //int[] ShiftToTail(int[] typeHistory)
-    //{
-    //    int[] shifted = new int[codeLength];
-    //    for (int i = 0; i < codeLength; i++)
-    //        shifted[i] = -1;
-
-    //    if (typeHistory[0] == -1)
-    //    {
-    //        return shifted;
-    //    }
-
-    //    if (typeHistory[1] == -1)
-    //    {
-    //        shifted[3] = typeHistory[0];
-    //        return shifted;
-    //    }
-
-    //    if (typeHistory[2] == -1)
-    //    {
-    //        shifted[2] = typeHistory[0];
-    //        shifted[3] = typeHistory[1];
-    //        return shifted;
-    //    }
-
-    //    if (typeHistory[3] == -1)
-    //    {
-    //        shifted[1] = typeHistory[0];
-    //        shifted[2] = typeHistory[1];
-    //        shifted[3] = typeHistory[2];
-    //        return shifted;
-    //    }
-
-    //    shifted[0] = typeHistory[0];
-    //    shifted[1] = typeHistory[1];
-    //    shifted[2] = typeHistory[2];
-    //    shifted[3] = typeHistory[3];
-
-    //    return shifted;
-    //}
 
     void RightPress(int position)
     {
