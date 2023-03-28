@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5213684960608500643}
   - component: {fileID: 6732688008847711885}
   m_Layer: 5
-  m_Name: EnemyTypeCheck
+  m_Name: EnemyMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,8 +163,9 @@ GameObject:
   - component: {fileID: 5613801854880262929}
   - component: {fileID: 5613801854880262935}
   - component: {fileID: 5613801854880262928}
+  - component: {fileID: 1578287580362728718}
   m_Layer: 5
-  m_Name: P1CodeKey1
+  m_Name: PXCodeKeyX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,6 +232,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1578287580362728718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5613801854880262930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad60e0ad10dcf49ffbfea6298a7d5510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: 0
+  key: 0
+  bg: {fileID: 5613801855426007494}
+  enemyMark: {fileID: 6732688008847711885}
 --- !u!1 &5613801855426007488
 GameObject:
   m_ObjectHideFlags: 0

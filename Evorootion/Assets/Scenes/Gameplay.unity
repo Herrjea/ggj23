@@ -180,7 +180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 2
-  stepDuration: 0.4
 --- !u!114 &5400735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4650,8 +4649,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minX: -6.5
   maxX: -2.5
-  minIdleDuration: 0.5
-  maxIdleDuration: 1
+  minIdleDuration: 1
+  maxIdleDuration: 3
   moveSpeed: 1
   animator: {fileID: 1757973530}
 --- !u!212 &1082427507
@@ -7342,7 +7341,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 1
-  stepDuration: 0.4
 --- !u!1 &1668672210
 GameObject:
   m_ObjectHideFlags: 0

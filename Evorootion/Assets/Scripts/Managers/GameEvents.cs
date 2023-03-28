@@ -65,6 +65,7 @@ public static class GameEvents
     public class IntEvent : UnityEvent<int> { };
     public class Int4Event : UnityEvent<int, int, int, int> { };
     public class IntArrayEvent : UnityEvent<int[]> { };
+    public class BoolArrayEvent : UnityEvent<bool[]> { };
 
     #endregion
 
@@ -95,6 +96,11 @@ public static class GameEvents
 
     public static IntArrayEvent P1NewTypeHistory = new IntArrayEvent();
     public static IntArrayEvent P2NewTypeHistory = new IntArrayEvent();
+
+    public static BoolArrayEvent P1OwnTypeHistoryDisplay = new BoolArrayEvent();
+    public static BoolArrayEvent P1EnemyTypeHistoryDisplay = new BoolArrayEvent();
+    public static BoolArrayEvent P2OwnTypeHistoryDisplay = new BoolArrayEvent();
+    public static BoolArrayEvent P2EnemyTypeHistoryDisplay = new BoolArrayEvent();
 
     public static IntEvent P1KeyPress = new IntEvent();
     public static IntEvent P2KeyPress = new IntEvent();
