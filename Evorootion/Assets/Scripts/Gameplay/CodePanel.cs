@@ -17,6 +17,10 @@ public class CodePanel : MonoBehaviour
     float removeOutlinesDuration = .5f;
     Coroutine waitCoroutine = null;
 
+    RectTransform rectTransform;
+    Vector2 startingPos;
+    [SerializeField] float shakeDuration, shakeAmplitude;
+
 
     private void Awake()
     {
@@ -60,6 +64,10 @@ public class CodePanel : MonoBehaviour
         }
         else
             print("Undefined player number on object " + name + ": " + player);
+
+        rectTransform = GetComponent<RectTransform>();
+        startingPos = rectTransform.anchoredPosition;
+        print(startingPos);
     }
 
 
@@ -70,6 +78,8 @@ public class CodePanel : MonoBehaviour
             code[i].sprite = keyImages[newCode[i]];
             intCode[i] = newCode[i];
         }
+
+        StartCoroutine(Shake());
     }
 
     
@@ -351,5 +361,24 @@ public class CodePanel : MonoBehaviour
             //rightOutlines[i].SetActive(false);
             //wrongOutlines[i].SetActive(false);
         }
+    }
+
+
+    IEnumerator Shake()
+    {
+        float t = 0;
+        while (t < shakeDuration)
+        {
+            rectTransform.anchoredPosition = new Vector2(
+                startingPos.x + Random.Range(-shakeAmplitude, shakeAmplitude),
+                startingPos.y + Random.Range(-shakeAmplitude, shakeAmplitude)
+            );
+
+            t += Time.deltaTime;
+
+            yield return null;
+        }
+
+        rectTransform.anchoredPosition = startingPos;
     }
 }

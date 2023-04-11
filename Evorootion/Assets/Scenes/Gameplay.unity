@@ -180,6 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 2
+  shakeDuration: 0.2
+  shakeAmplitude: 5
 --- !u!114 &5400735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17023,6 +17025,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 1
+  shakeDuration: 0.2
+  shakeAmplitude: 5
 --- !u!1 &1668672210
 GameObject:
   m_ObjectHideFlags: 0
