@@ -7,14 +7,19 @@ public class PlayerAvatar : MonoBehaviour
 {
     [SerializeField] int player;
     Animator animator;
+    int previousLevel;
 
     float platypusPlatychance = 0.05f;
+
+    [SerializeField] ParticleSystem lvlUpParticles;
+    [SerializeField] ParticleSystem lvlDownParticles;
 
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
 
+        previousLevel = globals.startingLevel;
         SetAvatar(globals.startingLevel);
 
         if (player == 1)
@@ -33,6 +38,14 @@ public class PlayerAvatar : MonoBehaviour
     void SetAvatar(int level)
     {
         //print("lvl " + level);
+
+        if (level > previousLevel)
+            lvlUpParticles.Play();
+        else if (level < previousLevel)
+            lvlDownParticles.Play();
+
+        previousLevel = level;
+
 
         if (level == globals.maxLevel)
         {

@@ -81,22 +81,26 @@ public class CodeKey : MonoBehaviour
 
     void TurnOwnOn()
     {
+        bg.sprite = bgPressed;
         //print("p" + player + " own " + key + " on");
     }
 
     void TurnOwnOff()
     {
+        bg.sprite = bgDefault;
         //print("p" + player + " own " + key + " off");
     }
 
 
     void TurnEnemyOn()
     {
+        enemyMark.sprite = enemyMarkPressed;
         //print("p" + player + " enemy " + key + " on");
     }
 
     void TurnEnemyOff()
     {
+        enemyMark.sprite = enemyMarkDefault;
         //print("p" + player + " enemy " + key + " off");
     }
 }
