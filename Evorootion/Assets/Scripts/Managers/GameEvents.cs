@@ -91,11 +91,15 @@ public static class GameEvents
     public static UnityEvent ShowControls = new UnityEvent();
     public static UnityEvent HideControls = new UnityEvent();
 
-    public static IntArrayEvent P1NewCode = new IntArrayEvent();
-    public static IntArrayEvent P2NewCode = new IntArrayEvent();
+    public static IntArrayEvent P1NewBasicCode = new IntArrayEvent();
+    public static IntArrayEvent P2NewBasicCode = new IntArrayEvent();
+    public static IntArrayEvent P1NewSpecialCode = new IntArrayEvent();
+    public static IntArrayEvent P2NewSpecialCode = new IntArrayEvent();
 
-    public static IntArrayEvent P1NewTypeHistory = new IntArrayEvent();
-    public static IntArrayEvent P2NewTypeHistory = new IntArrayEvent();
+    public static IntArrayEvent P1NewBasicTypeHistory = new IntArrayEvent();
+    public static IntArrayEvent P2NewBasicTypeHistory = new IntArrayEvent();
+    public static IntArrayEvent P1NewSpecialTypeHistory = new IntArrayEvent();
+    public static IntArrayEvent P2NewSpecialTypeHistory = new IntArrayEvent();
 
     public static BoolArrayEvent P1OwnTypeHistoryDisplay = new BoolArrayEvent();
     public static BoolArrayEvent P1EnemyTypeHistoryDisplay = new BoolArrayEvent();
@@ -111,14 +115,23 @@ public static class GameEvents
     public static IntEvent P1WrongPress = new IntEvent();
     public static IntEvent P2WrongPress = new IntEvent();
 
-    public static UnityEvent P1OwnWordCompleted = new UnityEvent();
-    public static UnityEvent P2OwnWordCompleted = new UnityEvent();
+    public static UnityEvent P1OwnBasicWordCompleted = new UnityEvent();
+    public static UnityEvent P2OwnBasicWordCompleted = new UnityEvent();
+    public static UnityEvent P1OwnSpecialWordCompleted = new UnityEvent();
+    public static UnityEvent P2OwnSpecialWordCompleted = new UnityEvent();
 
-    public static UnityEvent P1EnemyWordCompleted = new UnityEvent();
-    public static UnityEvent P2EnemyWordCompleted = new UnityEvent();
+    public static UnityEvent P1EnemyBasicWordCompleted = new UnityEvent();
+    public static UnityEvent P2EnemyBasicWordCompleted = new UnityEvent();
+    public static UnityEvent P1EnemySpecialWordCompleted = new UnityEvent();
+    public static UnityEvent P2EnemySpecialWordCompleted = new UnityEvent();
 
     public static IntEvent P1LvlChange = new IntEvent();
     public static IntEvent P2LvlChange = new IntEvent();
+
+    public static IntEvent P1TakeDamage = new IntEvent();
+    public static IntEvent P2TakeDamage = new IntEvent();
+    public static IntEvent P1Heal = new IntEvent();
+    public static IntEvent P2Heal = new IntEvent();
 
     public static UnityEvent P1Wins = new UnityEvent();
     public static UnityEvent P2Wins = new UnityEvent();

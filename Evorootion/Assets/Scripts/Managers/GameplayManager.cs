@@ -8,8 +8,8 @@ public class GameplayManager : MonoBehaviour
 {
     Input input;
 
-    int[] p1Code;
-    int[] p2Code;
+    int[] p1BasicCode;
+    int[] p2BasicCode;
 
     int[] p1typeHistory;
     int[] p2typeHistory;
@@ -60,8 +60,8 @@ public class GameplayManager : MonoBehaviour
         confirmLeavePanel.SetActive(false);
         menuCanvas.SetActive(false);
 
-        p1Code = new int[codeLength];
-        p2Code = new int[codeLength];
+        p1BasicCode = new int[codeLength];
+        p2BasicCode = new int[codeLength];
         p1typeHistory = new int[codeLength];
         p2typeHistory = new int[codeLength];
         for (int i = 0; i < codeLength; i++)
@@ -70,11 +70,16 @@ public class GameplayManager : MonoBehaviour
             p2typeHistory[i] = -1;
         }
 
-        GameEvents.P1NewCode.AddListener(NewP1Code);
-        GameEvents.P2NewCode.AddListener(NewP2Code);
+        GameEvents.P1NewBasicCode.AddListener(NewP1Code);
+        GameEvents.P2NewBasicCode.AddListener(NewP2Code);
 
         GameEvents.P1KeyPress.AddListener(P1KeyPress);
         GameEvents.P2KeyPress.AddListener(P2KeyPress);
+
+        GameEvents.P1Heal.AddListener(P1Heal);
+        GameEvents.P2Heal.AddListener(P2Heal);
+        GameEvents.P1TakeDamage.AddListener(P1TakeDamage);
+        GameEvents.P2TakeDamage.AddListener(P2TakeDamage);
 
         p1WinLights.SetActive(false);
         p2WinLights.SetActive(false);
@@ -229,70 +234,35 @@ public class GameplayManager : MonoBehaviour
     void NewP1Code(int[] code)
     {
         for (int i = 0; i < codeLength; i++)
-            p1Code[i] = code[i];
+            p1BasicCode[i] = code[i];
     }
 
     void NewP2Code(int[] code)
     {
         for (int i = 0; i < codeLength; i++)
-            p2Code[i] = code[i];
+            p2BasicCode[i] = code[i];
     }
 
 
     void P1KeyPress(int key)
     {
-        //if (p1typed < codeLength)
-        //{
-        //    p1typeHistory[p1typed] = key;
-        //    p1typed++;
-        //}
-        //else
-        //{
-        //    p1typeHistory[0] = p1typeHistory[1];
-        //    p1typeHistory[1] = p1typeHistory[2];
-        //    p1typeHistory[2] = p1typeHistory[3];
-        //    p1typeHistory[3] = key;
-        //}
-
         p1typeHistory[3] = p1typeHistory[2];
         p1typeHistory[2] = p1typeHistory[1];
         p1typeHistory[1] = p1typeHistory[0];
         p1typeHistory[0] = key;
 
-        GameEvents.P1NewTypeHistory.Invoke(p1typeHistory);
+        GameEvents.P1NewBasicTypeHistory.Invoke(p1typeHistory);
 
         if (CheckAgainsP1(p1typeHistory))
         {
-            p1lvl++;
-            GameEvents.P1LvlChange.Invoke(p1lvl);
-            if (p1lvl == maxLevel)
-            {
-                GameEvents.P1Wins.Invoke();
-
-                winLights = p1WinLights;
-                winner = 0;
-                ShowWinScreen();
-            }
-            else
-                GameEvents.P1OwnWordCompleted.Invoke();
+            GameEvents.P1OwnBasicWordCompleted.Invoke();
 
             ResetP1Typebox();
         }
 
         if (CheckAgainsP2(p1typeHistory))
         {
-            p2lvl--;
-            GameEvents.P2LvlChange.Invoke(p2lvl);
-            if (p2lvl == 0)
-            {
-                GameEvents.P1Wins.Invoke();
-
-                winLights = p1WinLights;
-                winner = 0;
-                ShowWinScreen();
-            }
-            else
-                GameEvents.P1EnemyWordCompleted.Invoke();
+            GameEvents.P1EnemyBasicWordCompleted.Invoke();
 
             ResetP1Typebox();
         }
@@ -300,59 +270,90 @@ public class GameplayManager : MonoBehaviour
 
     void P2KeyPress(int key)
     {
-        //if (p2typed < codeLength)
-        //{
-        //    p2typeHistory[p2typed] = key;
-        //    p2typed++;
-        //}
-        //else
-        //{
-        //    p2typeHistory[0] = p2typeHistory[1];
-        //    p2typeHistory[1] = p2typeHistory[2];
-        //    p2typeHistory[2] = p2typeHistory[3];
-        //    p2typeHistory[3] = key;
-        //}
-
         p2typeHistory[3] = p2typeHistory[2];
         p2typeHistory[2] = p2typeHistory[1];
         p2typeHistory[1] = p2typeHistory[0];
         p2typeHistory[0] = key;
 
-        GameEvents.P2NewTypeHistory.Invoke(p2typeHistory);
+        GameEvents.P2NewBasicTypeHistory.Invoke(p2typeHistory);
 
         if (CheckAgainsP2(p2typeHistory))
         {
-            p2lvl++;
-            GameEvents.P2LvlChange.Invoke(p2lvl);
-            if (p2lvl == maxLevel)
-            {
-                GameEvents.P2Wins.Invoke();
-                winLights = p2WinLights;
-                winner = 1;
-                ShowWinScreen();
-            }
-            else
-                GameEvents.P2OwnWordCompleted.Invoke();
+            GameEvents.P2OwnBasicWordCompleted.Invoke();
 
             ResetP2Typebox();
         }
 
         if (CheckAgainsP1(p2typeHistory))
         {
-            p1lvl--;
-            GameEvents.P1LvlChange.Invoke(p1lvl);
-            if (p1lvl == 0)
-            {
-                GameEvents.P2Wins.Invoke();
-
-                winLights = p2WinLights;
-                winner = 1;
-                ShowWinScreen();
-            }
-            else
-                GameEvents.P2EnemyWordCompleted.Invoke();
+            GameEvents.P2EnemyBasicWordCompleted.Invoke();
 
             ResetP2Typebox();
+        }
+    }
+
+
+    void P1Heal(int amount)
+    {
+        p1lvl = Mathf.Min(p1lvl + amount, maxLevel);
+
+        GameEvents.P1LvlChange.Invoke(p1lvl);
+
+        if (p1lvl == maxLevel)
+        {
+            GameEvents.P1Wins.Invoke();
+
+            winLights = p1WinLights;
+            winner = 0;
+            ShowWinScreen();
+        }
+    }
+
+    void P1TakeDamage(int amount)
+    {
+        p1lvl = Mathf.Max(p1lvl - amount, 0);
+
+        GameEvents.P1LvlChange.Invoke(p1lvl);
+
+        if (p1lvl == 0)
+        {
+            GameEvents.P2Wins.Invoke();
+
+            winLights = p2WinLights;
+            winner = 1;
+            ShowWinScreen();
+        }
+    }
+
+    void P2Heal(int amount)
+    {
+        p2lvl = Mathf.Min(p2lvl + amount, maxLevel);
+
+        GameEvents.P2LvlChange.Invoke(p2lvl);
+
+        if (p2lvl == maxLevel)
+        {
+            GameEvents.P2Wins.Invoke();
+
+            winLights = p2WinLights;
+            winner = 1;
+            ShowWinScreen();
+        }
+    }
+
+    void P2TakeDamage(int amount)
+    {
+        p2lvl = Mathf.Max(p2lvl - amount, 0);
+
+        GameEvents.P2LvlChange.Invoke(p2lvl);
+
+        if (p2lvl == 0)
+        {
+            GameEvents.P1Wins.Invoke();
+
+            winLights = p1WinLights;
+            winner = 0;
+            ShowWinScreen();
         }
     }
 
@@ -360,7 +361,7 @@ public class GameplayManager : MonoBehaviour
     bool CheckAgainsP1(int[] code)
     {
         for (int i = 0; i < codeLength; i++)
-            if (code[i] != p1Code[codeLength - i - 1])
+            if (code[i] != p1BasicCode[codeLength - i - 1])
                 return false;
 
         return true;
@@ -369,7 +370,7 @@ public class GameplayManager : MonoBehaviour
     bool CheckAgainsP2(int[] code)
     {
         for (int i = 0; i < codeLength; i++)
-            if (code[i] != p2Code[codeLength - i - 1])
+            if (code[i] != p2BasicCode[codeLength - i - 1])
                 return false;
 
         return true;
@@ -382,7 +383,7 @@ public class GameplayManager : MonoBehaviour
         for (int i = 0; i < codeLength; i++)
             p1typeHistory[i] = -1;
 
-        GameEvents.P1NewTypeHistory.Invoke(p1typeHistory);
+        GameEvents.P1NewBasicTypeHistory.Invoke(p1typeHistory);
     }
 
     void ResetP2Typebox()
@@ -391,7 +392,7 @@ public class GameplayManager : MonoBehaviour
         for (int i = 0; i < codeLength; i++)
             p2typeHistory[i] = -1;
 
-        GameEvents.P2NewTypeHistory.Invoke(p2typeHistory);
+        GameEvents.P2NewBasicTypeHistory.Invoke(p2typeHistory);
     }
 
 }

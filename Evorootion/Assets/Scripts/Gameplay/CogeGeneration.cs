@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CogeGeneration : MonoBehaviour
 {
-    Input input;
-
     int[] code;
 
     int codeLength = globals.codeLength;
@@ -13,13 +11,11 @@ public class CogeGeneration : MonoBehaviour
 
     private void Awake()
     {
-        GameEvents.InputSet.AddListener(InputSet);
+        GameEvents.P1OwnBasicWordCompleted.AddListener(P1BasicWordCompleted);
+        GameEvents.P2EnemyBasicWordCompleted.AddListener(P1BasicWordCompleted);
 
-        GameEvents.P1OwnWordCompleted.AddListener(P1WordCompleted);
-        GameEvents.P2EnemyWordCompleted.AddListener(P1WordCompleted);
-
-        GameEvents.P2OwnWordCompleted.AddListener(P2WordCompleted);
-        GameEvents.P1EnemyWordCompleted.AddListener(P2WordCompleted);
+        GameEvents.P2OwnBasicWordCompleted.AddListener(P2BasicWordCompleted);
+        GameEvents.P1EnemyBasicWordCompleted.AddListener(P2BasicWordCompleted);
 
         code = new int[codeLength];
     }
@@ -27,39 +23,28 @@ public class CogeGeneration : MonoBehaviour
 
     private void Start()
     {
-        GenerateCodeFor(1);
-        GenerateCodeFor(2);
+        P1BasicWordCompleted();
+        P2BasicWordCompleted();
     }
 
 
-    void GenerateCodeFor(int player)
+    void GenerateNewCode()
     {
         for (int i = 0; i < codeLength; i++)
         {
             code[i] = Random.Range(0, codeLength);
         }
-
-        if (player == 1)
-            GameEvents.P1NewCode.Invoke(code);
-        else
-            GameEvents.P2NewCode.Invoke(code);
     }
 
-    void P1WordCompleted()
+    void P1BasicWordCompleted()
     {
-        GenerateCodeFor(1);
-        GameEvents.P1NewCode.Invoke(code);
+        GenerateNewCode();
+        GameEvents.P1NewBasicCode.Invoke(code);
     }
 
-    void P2WordCompleted()
+    void P2BasicWordCompleted()
     {
-        GenerateCodeFor(2);
-        GameEvents.P2NewCode.Invoke(code);
-    }
-
-
-    void InputSet(Input input)
-    {
-        this.input = input;
+        GenerateNewCode();
+        GameEvents.P2NewBasicCode.Invoke(code);
     }
 }

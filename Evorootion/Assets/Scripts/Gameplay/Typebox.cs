@@ -29,14 +29,14 @@ public class Typebox : MonoBehaviour
         if (player == 1)
         {
             GameEvents.P1KeyPress.AddListener(KeyPress);
-            GameEvents.P1OwnWordCompleted.AddListener(ResetTypebox);
-            GameEvents.P1EnemyWordCompleted.AddListener(ResetTypebox);
+            GameEvents.P1OwnBasicWordCompleted.AddListener(ResetTypebox);
+            GameEvents.P1EnemyBasicWordCompleted.AddListener(ResetTypebox);
         }
         else if (player == 2)
         {
             GameEvents.P2KeyPress.AddListener(KeyPress);
-            GameEvents.P2OwnWordCompleted.AddListener(ResetTypebox);
-            GameEvents.P2EnemyWordCompleted.AddListener(ResetTypebox);
+            GameEvents.P2OwnBasicWordCompleted.AddListener(ResetTypebox);
+            GameEvents.P2EnemyBasicWordCompleted.AddListener(ResetTypebox);
         }
         else
             print("Undefined player number on object " + name + ": " + player);

@@ -53,10 +53,10 @@ public class SoundManager : MonoBehaviour
 
 		GameEvents.P1WrongPress.AddListener(WrongPress);
 		GameEvents.P1RightPress.AddListener(RightPress);
-		GameEvents.P1OwnWordCompleted.AddListener(WordCompleted);
-		GameEvents.P1EnemyWordCompleted.AddListener(WordCompleted);
-		GameEvents.P2OwnWordCompleted.AddListener(WordCompleted);
-		GameEvents.P2EnemyWordCompleted.AddListener(WordCompleted);
+		GameEvents.P1OwnBasicWordCompleted.AddListener(WordCompleted);
+		GameEvents.P1EnemyBasicWordCompleted.AddListener(WordCompleted);
+		GameEvents.P2OwnBasicWordCompleted.AddListener(WordCompleted);
+		GameEvents.P2EnemyBasicWordCompleted.AddListener(WordCompleted);
 		GameEvents.P1Wins.AddListener(Win);
 
 		PlayMusic(mainTheme);
