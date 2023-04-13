@@ -96,15 +96,17 @@ public static class GameEvents
     public static IntArrayEvent P1NewSpecialCode = new IntArrayEvent();
     public static IntArrayEvent P2NewSpecialCode = new IntArrayEvent();
 
-    public static IntArrayEvent P1NewBasicTypeHistory = new IntArrayEvent();
-    public static IntArrayEvent P2NewBasicTypeHistory = new IntArrayEvent();
-    public static IntArrayEvent P1NewSpecialTypeHistory = new IntArrayEvent();
-    public static IntArrayEvent P2NewSpecialTypeHistory = new IntArrayEvent();
+    public static IntArrayEvent P1NewTypeHistory = new IntArrayEvent();
+    public static IntArrayEvent P2NewTypeHistory = new IntArrayEvent();
 
-    public static BoolArrayEvent P1OwnTypeHistoryDisplay = new BoolArrayEvent();
-    public static BoolArrayEvent P1EnemyTypeHistoryDisplay = new BoolArrayEvent();
-    public static BoolArrayEvent P2OwnTypeHistoryDisplay = new BoolArrayEvent();
-    public static BoolArrayEvent P2EnemyTypeHistoryDisplay = new BoolArrayEvent();
+    public static BoolArrayEvent P1OwnBasicTypeHistoryDisplay = new BoolArrayEvent();
+    public static BoolArrayEvent P1EnemyBasicTypeHistoryDisplay = new BoolArrayEvent();
+    public static BoolArrayEvent P2OwnBasicTypeHistoryDisplay = new BoolArrayEvent();
+    public static BoolArrayEvent P2EnemyBasicTypeHistoryDisplay = new BoolArrayEvent();
+    public static BoolArrayEvent P1OwnSpecialTypeHistoryDisplay = new BoolArrayEvent();
+    public static BoolArrayEvent P1EnemySpecialTypeHistoryDisplay = new BoolArrayEvent();
+    public static BoolArrayEvent P2OwnSpecialTypeHistoryDisplay = new BoolArrayEvent();
+    public static BoolArrayEvent P2EnemySpecialTypeHistoryDisplay = new BoolArrayEvent();
 
     public static IntEvent P1KeyPress = new IntEvent();
     public static IntEvent P2KeyPress = new IntEvent();

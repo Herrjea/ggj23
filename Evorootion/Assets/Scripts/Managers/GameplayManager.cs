@@ -10,11 +10,11 @@ public class GameplayManager : MonoBehaviour
 
     int[] p1BasicCode;
     int[] p2BasicCode;
+    int[] p1SpecialCode;
+    int[] p2SpecialCode;
 
-    int[] p1typeHistory;
-    int[] p2typeHistory;
-    int p1typed = 0;
-    int p2typed = 0;
+    int[] p1TypeHistory;
+    int[] p2TypeHistory;
 
     int p1lvl = globals.startingLevel;
     int p2lvl = globals.startingLevel;
@@ -62,16 +62,20 @@ public class GameplayManager : MonoBehaviour
 
         p1BasicCode = new int[codeLength];
         p2BasicCode = new int[codeLength];
-        p1typeHistory = new int[codeLength];
-        p2typeHistory = new int[codeLength];
+        p1SpecialCode = new int[codeLength];
+        p2SpecialCode = new int[codeLength];
+        p1TypeHistory = new int[codeLength];
+        p2TypeHistory = new int[codeLength];
         for (int i = 0; i < codeLength; i++)
         {
-            p1typeHistory[i] = -1;
-            p2typeHistory[i] = -1;
+            p1TypeHistory[i] = -1;
+            p2TypeHistory[i] = -1;
         }
 
-        GameEvents.P1NewBasicCode.AddListener(NewP1Code);
-        GameEvents.P2NewBasicCode.AddListener(NewP2Code);
+        GameEvents.P1NewBasicCode.AddListener(NewP1BasicCode);
+        GameEvents.P2NewBasicCode.AddListener(NewP2BasicCode);
+        GameEvents.P1NewSpecialCode.AddListener(NewP1SpecialCode);
+        GameEvents.P2NewSpecialCode.AddListener(NewP2SpecialCode);
 
         GameEvents.P1KeyPress.AddListener(P1KeyPress);
         GameEvents.P2KeyPress.AddListener(P2KeyPress);
@@ -231,38 +235,66 @@ public class GameplayManager : MonoBehaviour
 
     #endregion
 
-    void NewP1Code(int[] code)
+    void NewP1BasicCode(int[] code)
     {
         for (int i = 0; i < codeLength; i++)
             p1BasicCode[i] = code[i];
     }
 
-    void NewP2Code(int[] code)
+    void NewP2BasicCode(int[] code)
     {
         for (int i = 0; i < codeLength; i++)
             p2BasicCode[i] = code[i];
     }
 
+    void NewP1SpecialCode(int[] code)
+    {
+        for (int i = 0; i < codeLength; i++)
+            p1SpecialCode[i] = code[i];
+    }
+
+    void NewP2SpecialCode(int[] code)
+    {
+        for (int i = 0; i < codeLength; i++)
+            p2SpecialCode[i] = code[i];
+    }
+
 
     void P1KeyPress(int key)
     {
-        p1typeHistory[3] = p1typeHistory[2];
-        p1typeHistory[2] = p1typeHistory[1];
-        p1typeHistory[1] = p1typeHistory[0];
-        p1typeHistory[0] = key;
+        p1TypeHistory[3] = p1TypeHistory[2];
+        p1TypeHistory[2] = p1TypeHistory[1];
+        p1TypeHistory[1] = p1TypeHistory[0];
+        p1TypeHistory[0] = key;
 
-        GameEvents.P1NewBasicTypeHistory.Invoke(p1typeHistory);
+        GameEvents.P1NewTypeHistory.Invoke(p1TypeHistory);
 
-        if (CheckAgainsP1(p1typeHistory))
+        if (CheckAgainsP1Basic(p1TypeHistory))
         {
             GameEvents.P1OwnBasicWordCompleted.Invoke();
 
             ResetP1Typebox();
         }
 
-        if (CheckAgainsP2(p1typeHistory))
+        if (CheckAgainsP1Special(p1TypeHistory))
+        {
+            GameEvents.P1OwnSpecialWordCompleted.Invoke();
+
+            ResetP1Typebox();
+        }
+
+        if (CheckAgainsP2Basic(p1TypeHistory))
         {
             GameEvents.P1EnemyBasicWordCompleted.Invoke();
+            GameEvents.P2NewTypeHistory.Invoke(p2TypeHistory);
+
+            ResetP1Typebox();
+        }
+
+        if (CheckAgainsP2Special(p1TypeHistory))
+        {
+            GameEvents.P1EnemySpecialWordCompleted.Invoke();
+            GameEvents.P2NewTypeHistory.Invoke(p2TypeHistory);
 
             ResetP1Typebox();
         }
@@ -270,23 +302,39 @@ public class GameplayManager : MonoBehaviour
 
     void P2KeyPress(int key)
     {
-        p2typeHistory[3] = p2typeHistory[2];
-        p2typeHistory[2] = p2typeHistory[1];
-        p2typeHistory[1] = p2typeHistory[0];
-        p2typeHistory[0] = key;
+        p2TypeHistory[3] = p2TypeHistory[2];
+        p2TypeHistory[2] = p2TypeHistory[1];
+        p2TypeHistory[1] = p2TypeHistory[0];
+        p2TypeHistory[0] = key;
 
-        GameEvents.P2NewBasicTypeHistory.Invoke(p2typeHistory);
+        GameEvents.P2NewTypeHistory.Invoke(p2TypeHistory);
 
-        if (CheckAgainsP2(p2typeHistory))
+        if (CheckAgainsP2Basic(p2TypeHistory))
         {
             GameEvents.P2OwnBasicWordCompleted.Invoke();
 
             ResetP2Typebox();
         }
 
-        if (CheckAgainsP1(p2typeHistory))
+        if (CheckAgainsP2Special(p2TypeHistory))
+        {
+            GameEvents.P2OwnSpecialWordCompleted.Invoke();
+
+            ResetP2Typebox();
+        }
+
+        if (CheckAgainsP1Basic(p2TypeHistory))
         {
             GameEvents.P2EnemyBasicWordCompleted.Invoke();
+            GameEvents.P1NewTypeHistory.Invoke(p1TypeHistory);
+
+            ResetP2Typebox();
+        }
+
+        if (CheckAgainsP1Special(p2TypeHistory))
+        {
+            GameEvents.P2EnemySpecialWordCompleted.Invoke();
+            GameEvents.P1NewTypeHistory.Invoke(p1TypeHistory);
 
             ResetP2Typebox();
         }
@@ -358,7 +406,7 @@ public class GameplayManager : MonoBehaviour
     }
 
 
-    bool CheckAgainsP1(int[] code)
+    bool CheckAgainsP1Basic(int[] code)
     {
         for (int i = 0; i < codeLength; i++)
             if (code[i] != p1BasicCode[codeLength - i - 1])
@@ -367,7 +415,16 @@ public class GameplayManager : MonoBehaviour
         return true;
     }
 
-    bool CheckAgainsP2(int[] code)
+    bool CheckAgainsP1Special(int[] code)
+    {
+        for (int i = 0; i < codeLength; i++)
+            if (code[i] != p1SpecialCode[codeLength - i - 1])
+                return false;
+
+        return true;
+    }
+
+    bool CheckAgainsP2Basic(int[] code)
     {
         for (int i = 0; i < codeLength; i++)
             if (code[i] != p2BasicCode[codeLength - i - 1])
@@ -376,23 +433,29 @@ public class GameplayManager : MonoBehaviour
         return true;
     }
 
+    bool CheckAgainsP2Special(int[] code)
+    {
+        for (int i = 0; i < codeLength; i++)
+            if (code[i] != p2SpecialCode[codeLength - i - 1])
+                return false;
+
+        return true;
+    }
+
 
     void ResetP1Typebox()
     {
-        p1typed = 0;
         for (int i = 0; i < codeLength; i++)
-            p1typeHistory[i] = -1;
+            p1TypeHistory[i] = -1;
 
-        GameEvents.P1NewBasicTypeHistory.Invoke(p1typeHistory);
+        GameEvents.P1NewTypeHistory.Invoke(p1TypeHistory);
     }
 
     void ResetP2Typebox()
     {
-        p2typed = 0;
         for (int i = 0; i < codeLength; i++)
-            p2typeHistory[i] = -1;
+            p2TypeHistory[i] = -1;
 
-        GameEvents.P2NewBasicTypeHistory.Invoke(p2typeHistory);
+        GameEvents.P2NewTypeHistory.Invoke(p2TypeHistory);
     }
-
 }

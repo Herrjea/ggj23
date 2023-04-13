@@ -3,30 +3,30 @@ using UnityEngine.UI;
 
 public class CodeKey : MonoBehaviour
 {
-    [SerializeField] int player;
-    [SerializeField] int key;
+    [SerializeField] protected int player;
+    [SerializeField] protected int key;
 
-    bool ownPressed = false;
-    bool enemyPressed = false;
+    protected bool ownPressed = false;
+    protected bool enemyPressed = false;
 
-    Sprite bgDefault, bgPressed;
-    [SerializeField] Image bg;
+    protected Sprite bgDefault, bgPressed;
+    [SerializeField] protected Image bg;
 
-    Sprite enemyMarkDefault, enemyMarkPressed;
-    [SerializeField] Image enemyMark;
+    protected Sprite enemyMarkDefault, enemyMarkPressed;
+    [SerializeField] protected Image enemyMark;
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if (player == 1)
         {
-            GameEvents.P1OwnTypeHistoryDisplay.AddListener(OwnKeyUpdate);
-            GameEvents.P1EnemyTypeHistoryDisplay.AddListener(EnemyKeyUpdate);
+            GameEvents.P1OwnBasicTypeHistoryDisplay.AddListener(OwnKeyUpdate);
+            GameEvents.P1EnemyBasicTypeHistoryDisplay.AddListener(EnemyKeyUpdate);
         }
         else if (player == 2)
         {
-            GameEvents.P2OwnTypeHistoryDisplay.AddListener(OwnKeyUpdate);
-            GameEvents.P2EnemyTypeHistoryDisplay.AddListener(EnemyKeyUpdate);
+            GameEvents.P2OwnBasicTypeHistoryDisplay.AddListener(OwnKeyUpdate);
+            GameEvents.P2EnemyBasicTypeHistoryDisplay.AddListener(EnemyKeyUpdate);
         }
         else
             print(name + ": Unrecognized player index: " + player);
@@ -50,7 +50,7 @@ public class CodeKey : MonoBehaviour
     }
 
 
-    void OwnKeyUpdate(bool[] currentlyPressed)
+    protected void OwnKeyUpdate(bool[] currentlyPressed)
     {
         if (currentlyPressed[key] != ownPressed)
         {
@@ -64,7 +64,7 @@ public class CodeKey : MonoBehaviour
         bg.sprite = ownPressed ? bgPressed : bgDefault;
     }
 
-    void EnemyKeyUpdate(bool[] currentlyPressed)
+    protected void EnemyKeyUpdate(bool[] currentlyPressed)
     {
         if (currentlyPressed[key] != enemyPressed)
         {
@@ -79,26 +79,26 @@ public class CodeKey : MonoBehaviour
     }
 
 
-    void TurnOwnOn()
+    protected void TurnOwnOn()
     {
         bg.sprite = bgPressed;
         //print("p" + player + " own " + key + " on");
     }
 
-    void TurnOwnOff()
+    protected void TurnOwnOff()
     {
         bg.sprite = bgDefault;
         //print("p" + player + " own " + key + " off");
     }
 
 
-    void TurnEnemyOn()
+    protected void TurnEnemyOn()
     {
         enemyMark.sprite = enemyMarkPressed;
         //print("p" + player + " enemy " + key + " on");
     }
 
-    void TurnEnemyOff()
+    protected void TurnEnemyOff()
     {
         enemyMark.sprite = enemyMarkDefault;
         //print("p" + player + " enemy " + key + " off");

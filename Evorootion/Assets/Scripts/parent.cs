@@ -76,8 +76,8 @@ public class parent : MonoBehaviour
         if (player == 1)
         {
             GameEvents.P1NewBasicCode.AddListener(SetNewCode);
-            GameEvents.P1NewBasicTypeHistory.AddListener(NewOwnTypeHistory);
-            GameEvents.P2NewBasicTypeHistory.AddListener(NewEnemyTypeHistory);
+            GameEvents.P1NewTypeHistory.AddListener(NewOwnTypeHistory);
+            GameEvents.P2NewTypeHistory.AddListener(NewEnemyTypeHistory);
 
             GameEvents.P1OwnBasicWordCompleted.AddListener(SelfCompletedWord);
             GameEvents.P2EnemyBasicWordCompleted.AddListener(EnemyCompletedWord);
@@ -85,8 +85,8 @@ public class parent : MonoBehaviour
         else if (player == 2)
         {
             GameEvents.P2NewBasicCode.AddListener(SetNewCode);
-            GameEvents.P2NewBasicTypeHistory.AddListener(NewOwnTypeHistory);
-            GameEvents.P1NewBasicTypeHistory.AddListener(NewEnemyTypeHistory);
+            GameEvents.P2NewTypeHistory.AddListener(NewOwnTypeHistory);
+            GameEvents.P1NewTypeHistory.AddListener(NewEnemyTypeHistory);
 
             GameEvents.P2OwnBasicWordCompleted.AddListener(SelfCompletedWord);
             GameEvents.P1EnemyBasicWordCompleted.AddListener(EnemyCompletedWord);
@@ -204,16 +204,16 @@ public class parent : MonoBehaviour
             if (player == 1)
             {
                 if (own)
-                    GameEvents.P1OwnTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P1OwnBasicTypeHistoryDisplay.Invoke(pressedKeys);
                 else
-                    GameEvents.P1EnemyTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P1EnemyBasicTypeHistoryDisplay.Invoke(pressedKeys);
             }
             else
             {
                 if (own)
-                    GameEvents.P2OwnTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P2OwnBasicTypeHistoryDisplay.Invoke(pressedKeys);
                 else
-                    GameEvents.P2EnemyTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P2EnemyBasicTypeHistoryDisplay.Invoke(pressedKeys);
             }
 
             return;
@@ -230,16 +230,16 @@ public class parent : MonoBehaviour
             if (player == 1)
             {
                 if (own)
-                    GameEvents.P1OwnTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P1OwnBasicTypeHistoryDisplay.Invoke(pressedKeys);
                 else
-                    GameEvents.P1EnemyTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P1EnemyBasicTypeHistoryDisplay.Invoke(pressedKeys);
             }
             else
             {
                 if (own)
-                    GameEvents.P2OwnTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P2OwnBasicTypeHistoryDisplay.Invoke(pressedKeys);
                 else
-                    GameEvents.P2EnemyTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P2EnemyBasicTypeHistoryDisplay.Invoke(pressedKeys);
             }
 
             return;
@@ -255,16 +255,16 @@ public class parent : MonoBehaviour
             if (player == 1)
             {
                 if (own)
-                    GameEvents.P1OwnTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P1OwnBasicTypeHistoryDisplay.Invoke(pressedKeys);
                 else
-                    GameEvents.P1EnemyTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P1EnemyBasicTypeHistoryDisplay.Invoke(pressedKeys);
             }
             else
             {
                 if (own)
-                    GameEvents.P2OwnTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P2OwnBasicTypeHistoryDisplay.Invoke(pressedKeys);
                 else
-                    GameEvents.P2EnemyTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P2EnemyBasicTypeHistoryDisplay.Invoke(pressedKeys);
             }
 
             return;
@@ -279,16 +279,16 @@ public class parent : MonoBehaviour
             if (player == 1)
             {
                 if (own)
-                    GameEvents.P1OwnTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P1OwnBasicTypeHistoryDisplay.Invoke(pressedKeys);
                 else
-                    GameEvents.P1EnemyTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P1EnemyBasicTypeHistoryDisplay.Invoke(pressedKeys);
             }
             else
             {
                 if (own)
-                    GameEvents.P2OwnTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P2OwnBasicTypeHistoryDisplay.Invoke(pressedKeys);
                 else
-                    GameEvents.P2EnemyTypeHistoryDisplay.Invoke(pressedKeys);
+                    GameEvents.P2EnemyBasicTypeHistoryDisplay.Invoke(pressedKeys);
             }
 
             return;
@@ -298,16 +298,16 @@ public class parent : MonoBehaviour
         if (player == 1)
         {
             if (own)
-                GameEvents.P1OwnTypeHistoryDisplay.Invoke(pressedKeys);
+                GameEvents.P1OwnBasicTypeHistoryDisplay.Invoke(pressedKeys);
             else
-                GameEvents.P1EnemyTypeHistoryDisplay.Invoke(pressedKeys);
+                GameEvents.P1EnemyBasicTypeHistoryDisplay.Invoke(pressedKeys);
         }
         else
         {
             if (own)
-                GameEvents.P2OwnTypeHistoryDisplay.Invoke(pressedKeys);
+                GameEvents.P2OwnBasicTypeHistoryDisplay.Invoke(pressedKeys);
             else
-                GameEvents.P2EnemyTypeHistoryDisplay.Invoke(pressedKeys);
+                GameEvents.P2EnemyBasicTypeHistoryDisplay.Invoke(pressedKeys);
         }
     }
 
