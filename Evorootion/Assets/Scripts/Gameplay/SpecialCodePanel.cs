@@ -57,7 +57,7 @@ public class SpecialCodePanel : CodePanel
 
 
         abilities = new List<Ability>();
-        abilities.Add(new DefaultAbility(player));
+        abilities.Add(new ThrashAbility(player));
     }
 
 
