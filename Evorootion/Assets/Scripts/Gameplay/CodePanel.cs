@@ -14,6 +14,8 @@ public class CodePanel : MonoBehaviour
     protected Sprite[] keyImages;
     protected int keyCount = globals.keyCount;
 
+    protected Image abilityIcon;
+
     protected float removeOutlinesDuration = .5f;
     protected Coroutine waitCoroutine = null;
 

@@ -4,10 +4,15 @@ using UnityEngine;
 public class Ability
 {
     protected int player = 0;
+    public Sprite icon;
 
     public Ability(int player)
     {
         this.player = player;
+
+        icon = Resources.Load<Sprite>("AbilityIcons/" + GetType().ToString() + "Icon");
+        if (icon == null)
+            Debug.LogError("Ability icon not found: " + "AbilityIcons/" + GetType().ToString() + "Icon");
     }
 
 

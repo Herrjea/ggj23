@@ -5,6 +5,7 @@ public class MicroplasticSludgeAbility : Ability
 {
     public MicroplasticSludgeAbility(int player) : base(player)
     {
+        
     }
 
     public override void SelfTrigger()

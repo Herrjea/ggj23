@@ -38,6 +38,10 @@ public class SpecialCodePanel : CodePanel
             code[i] = tmp.GetChild(1).GetComponent<Image>();
         }
 
+
+        abilityIcon = transform.GetChild(4).transform.GetChild(0).GetComponent<Image>();
+
+
         // For shake purposes
         rectTransform = GetComponent<RectTransform>();
         startingPos = rectTransform.anchoredPosition;
@@ -115,7 +119,7 @@ public class SpecialCodePanel : CodePanel
             0,
             abilities.Count
         );
-        print("ability " + currentAbility + " for player " + player);
+        abilityIcon.sprite = abilities[currentAbility].icon;
     }
 
     IEnumerator AnimationCoroutine(bool showing)
@@ -136,8 +140,6 @@ public class SpecialCodePanel : CodePanel
                         1 - t / animationDuration
                 )
             );
-
-            //print(t + " " + (t / animationDuration) + " " + animationEase.Evaluate(t / animationDuration));
 
             yield return null;
         }
