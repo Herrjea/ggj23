@@ -1185,7 +1185,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 8
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -11869,7 +11869,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 8
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -24724,8 +24724,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2b19f15e942f42008ef756c86da274b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specialAbilityMinCDTime: 1
-  specialAbilityMaxCDTime: 3
+  specialAbilityMinCDTime: 2
+  specialAbilityMaxCDTime: 4
   menuCanvas: {fileID: 1739524316}
   optionsPanel: {fileID: 899619897}
   confirmLeavePanel: {fileID: 637717763}

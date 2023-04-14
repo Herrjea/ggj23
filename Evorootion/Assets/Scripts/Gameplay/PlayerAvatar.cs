@@ -13,6 +13,9 @@ public class PlayerAvatar : MonoBehaviour
 
     [SerializeField] ParticleSystem lvlUpParticles;
     [SerializeField] ParticleSystem lvlDownParticles;
+    ParticleSystem.EmissionModule lvlUpEmission;
+    ParticleSystem.EmissionModule lvlDownEmission;
+    int initialEmission = 8;
 
 
     private void Awake()
@@ -32,17 +35,27 @@ public class PlayerAvatar : MonoBehaviour
         }
         else
             print("Undefined player number on object " + name + ": " + player);
+
+        lvlUpEmission = lvlUpParticles.emission;
+        lvlDownEmission = lvlDownParticles.emission;
     }
 
 
     void SetAvatar(int level)
     {
         //print("lvl " + level);
+        int difference = Mathf.Abs(level - previousLevel);
 
         if (level > previousLevel)
+        {
+            lvlUpEmission.rateOverTime = initialEmission * difference;
             lvlUpParticles.Play();
+        }
         else if (level < previousLevel)
+        {
+            lvlDownEmission.rateOverTime = initialEmission * difference;
             lvlDownParticles.Play();
+        }
 
         previousLevel = level;
 
