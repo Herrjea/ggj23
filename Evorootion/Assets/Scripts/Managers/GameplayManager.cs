@@ -21,6 +21,9 @@ public class GameplayManager : MonoBehaviour
     int maxLevel = globals.maxLevel;
     int codeLength = globals.codeLength;
 
+    [SerializeField] float specialAbilityMinCDTime = 3;
+    [SerializeField] float specialAbilityMaxCDTime = 6;
+
     [SerializeField] GameObject menuCanvas;
     [SerializeField] GameObject optionsPanel;
     [SerializeField] GameObject confirmLeavePanel;
@@ -87,6 +90,9 @@ public class GameplayManager : MonoBehaviour
 
         p1WinLights.SetActive(false);
         p2WinLights.SetActive(false);
+
+        StartCoroutine(P1SpecialAbilityCDHandler());
+        StartCoroutine(P2SpecialAbilityCDHandler());
     }
 
 
@@ -235,6 +241,9 @@ public class GameplayManager : MonoBehaviour
 
     #endregion
 
+
+    #region Code handling
+
     void NewP1BasicCode(int[] code)
     {
         for (int i = 0; i < codeLength; i++)
@@ -271,7 +280,7 @@ public class GameplayManager : MonoBehaviour
 
         if (CheckAgainsP1Basic(p1TypeHistory))
         {
-            GameEvents.P1OwnBasicWordCompleted.Invoke();
+            GameEvents.P1NewOwnBasicWord.Invoke();
 
             ResetP1Typebox();
         }
@@ -281,11 +290,12 @@ public class GameplayManager : MonoBehaviour
             GameEvents.P1OwnSpecialWordCompleted.Invoke();
 
             ResetP1Typebox();
+            HideSpecialAbilityP1();
         }
 
         if (CheckAgainsP2Basic(p1TypeHistory))
         {
-            GameEvents.P1EnemyBasicWordCompleted.Invoke();
+            GameEvents.P1NewEnemyBasicWord.Invoke();
             GameEvents.P2NewTypeHistory.Invoke(p2TypeHistory);
 
             ResetP1Typebox();
@@ -297,6 +307,7 @@ public class GameplayManager : MonoBehaviour
             GameEvents.P2NewTypeHistory.Invoke(p2TypeHistory);
 
             ResetP1Typebox();
+            HideSpecialAbilityP2();
         }
     }
 
@@ -311,7 +322,7 @@ public class GameplayManager : MonoBehaviour
 
         if (CheckAgainsP2Basic(p2TypeHistory))
         {
-            GameEvents.P2OwnBasicWordCompleted.Invoke();
+            GameEvents.P2NewOwnBasicWord.Invoke();
 
             ResetP2Typebox();
         }
@@ -321,11 +332,12 @@ public class GameplayManager : MonoBehaviour
             GameEvents.P2OwnSpecialWordCompleted.Invoke();
 
             ResetP2Typebox();
+            HideSpecialAbilityP2();
         }
 
         if (CheckAgainsP1Basic(p2TypeHistory))
         {
-            GameEvents.P2EnemyBasicWordCompleted.Invoke();
+            GameEvents.P2NewEnemyBasicWord.Invoke();
             GameEvents.P1NewTypeHistory.Invoke(p1TypeHistory);
 
             ResetP2Typebox();
@@ -337,6 +349,7 @@ public class GameplayManager : MonoBehaviour
             GameEvents.P1NewTypeHistory.Invoke(p1TypeHistory);
 
             ResetP2Typebox();
+            HideSpecialAbilityP1();
         }
     }
 
@@ -457,5 +470,47 @@ public class GameplayManager : MonoBehaviour
             p2TypeHistory[i] = -1;
 
         GameEvents.P2NewTypeHistory.Invoke(p2TypeHistory);
+    }
+
+    #endregion
+
+
+    IEnumerator P1SpecialAbilityCDHandler()
+    {
+        yield return new WaitForSeconds(Random.Range(specialAbilityMinCDTime, specialAbilityMaxCDTime));
+
+        ShowSpecialAbilityP1();
+    }
+
+    IEnumerator P2SpecialAbilityCDHandler()
+    {
+        yield return new WaitForSeconds(Random.Range(specialAbilityMinCDTime, specialAbilityMaxCDTime));
+
+        ShowSpecialAbilityP2();
+    }
+
+
+    void ShowSpecialAbilityP1()
+    {
+        GameEvents.P1ShowSpecialAbility.Invoke();
+    }
+
+    void HideSpecialAbilityP1()
+    {
+        GameEvents.P1HideSpecialAbility.Invoke();
+
+        StartCoroutine(P1SpecialAbilityCDHandler());
+    }
+
+    void ShowSpecialAbilityP2()
+    {
+        GameEvents.P2ShowSpecialAbility.Invoke();
+    }
+
+    void HideSpecialAbilityP2()
+    {
+        GameEvents.P2HideSpecialAbility.Invoke();
+
+        StartCoroutine(P2SpecialAbilityCDHandler());
     }
 }

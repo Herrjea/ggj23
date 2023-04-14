@@ -60,8 +60,8 @@ public class CodePanel : MonoBehaviour
             GameEvents.P1NewTypeHistory.AddListener(NewOwnTypeHistory);
             GameEvents.P2NewTypeHistory.AddListener(NewEnemyTypeHistory);
 
-            GameEvents.P1OwnBasicWordCompleted.AddListener(SelfCompletedWord);
-            GameEvents.P2EnemyBasicWordCompleted.AddListener(EnemyCompletedWord);
+            GameEvents.P1NewOwnBasicWord.AddListener(SelfCompletedWord);
+            GameEvents.P2NewEnemyBasicWord.AddListener(EnemyCompletedWord);
         }
         else if (player == 2)
         {
@@ -69,8 +69,8 @@ public class CodePanel : MonoBehaviour
             GameEvents.P2NewTypeHistory.AddListener(NewOwnTypeHistory);
             GameEvents.P1NewTypeHistory.AddListener(NewEnemyTypeHistory);
 
-            GameEvents.P2OwnBasicWordCompleted.AddListener(SelfCompletedWord);
-            GameEvents.P1EnemyBasicWordCompleted.AddListener(EnemyCompletedWord);
+            GameEvents.P2NewOwnBasicWord.AddListener(SelfCompletedWord);
+            GameEvents.P1NewEnemyBasicWord.AddListener(EnemyCompletedWord);
         }
         else
             print("Undefined player number on object " + name + ": " + player);

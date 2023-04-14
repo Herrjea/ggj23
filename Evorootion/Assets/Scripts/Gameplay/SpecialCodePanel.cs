@@ -1,12 +1,21 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SpecialCodePanel : CodePanel
 {
+    Vector3 originalSize;
+    [SerializeField] AnimationCurve animationEase;
+    [SerializeField] float animationDuration = .5f;
+
+
     protected override void Awake()
     {
         //base.Awake();
+
+        rectTransform = GetComponent<RectTransform>();
+        originalSize = rectTransform.localScale;
 
         keyImages = new Sprite[keyCount];
         for (int i = 0; i < keyCount; i++)
@@ -42,6 +51,9 @@ public class SpecialCodePanel : CodePanel
 
             GameEvents.P1OwnSpecialWordCompleted.AddListener(SelfCompletedWord);
             GameEvents.P2EnemySpecialWordCompleted.AddListener(EnemyCompletedWord);
+
+            GameEvents.P1HideSpecialAbility.AddListener(HidePanel);
+            GameEvents.P1ShowSpecialAbility.AddListener(ShowPanel);
         }
         else if (player == 2)
         {
@@ -51,13 +63,21 @@ public class SpecialCodePanel : CodePanel
 
             GameEvents.P2OwnSpecialWordCompleted.AddListener(SelfCompletedWord);
             GameEvents.P1EnemySpecialWordCompleted.AddListener(EnemyCompletedWord);
+
+            GameEvents.P2HideSpecialAbility.AddListener(HidePanel);
+            GameEvents.P2ShowSpecialAbility.AddListener(ShowPanel);
         }
         else
             print("Undefined player number on object " + name + ": " + player);
 
 
         abilities = new List<Ability>();
-        abilities.Add(new ThrashAbility(player));
+        abilities.Add(new MicroplasticSludgeAbility(player));
+        abilities.Add(new PoisonousDietAbility(player));
+
+
+        // Start hidden
+        rectTransform.localScale = Vector3.zero;
     }
 
 
@@ -79,5 +99,47 @@ public class SpecialCodePanel : CodePanel
     protected override void NewP2EnemyTypeHistoryDisplay(bool[] pressedKeys)
     {
         GameEvents.P2EnemySpecialTypeHistoryDisplay.Invoke(pressedKeys);
+    }
+
+
+    void HidePanel()
+    {
+        StartCoroutine(AnimationCoroutine(false));
+    }
+
+    void ShowPanel()
+    {
+        StartCoroutine(AnimationCoroutine(true));
+
+        currentAbility = Random.Range(
+            0,
+            abilities.Count
+        );
+        print("ability " + currentAbility + " for player " + player);
+    }
+
+    IEnumerator AnimationCoroutine(bool showing)
+    {
+        float t = 0;
+
+        while (t < animationDuration)
+        {
+            t += Time.deltaTime;
+
+            rectTransform.localScale = Vector3.LerpUnclamped(
+                Vector3.zero,
+                originalSize,
+                animationEase.Evaluate(
+                    showing ?
+                        t / animationDuration
+                        :
+                        1 - t / animationDuration
+                )
+            );
+
+            //print(t + " " + (t / animationDuration) + " " + animationEase.Evaluate(t / animationDuration));
+
+            yield return null;
+        }
     }
 }

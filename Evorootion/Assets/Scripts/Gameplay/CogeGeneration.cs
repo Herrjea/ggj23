@@ -11,15 +11,14 @@ public class CogeGeneration : MonoBehaviour
 
     private void Awake()
     {
-        GameEvents.P1OwnBasicWordCompleted.AddListener(P1BasicWordCompleted);
-        GameEvents.P1OwnSpecialWordCompleted.AddListener(P1SpecialWordCompleted);
-        GameEvents.P2EnemyBasicWordCompleted.AddListener(P1BasicWordCompleted);
-        GameEvents.P2EnemySpecialWordCompleted.AddListener(P1SpecialWordCompleted);
+        GameEvents.P1NewOwnBasicWord.AddListener(P1NewBasicWord);
+        GameEvents.P2NewEnemyBasicWord.AddListener(P1NewBasicWord);
 
-        GameEvents.P2OwnBasicWordCompleted.AddListener(P2BasicWordCompleted);
-        GameEvents.P2OwnSpecialWordCompleted.AddListener(P2SpecialWordCompleted);
-        GameEvents.P1EnemyBasicWordCompleted.AddListener(P2BasicWordCompleted);
-        GameEvents.P1EnemySpecialWordCompleted.AddListener(P2SpecialWordCompleted);
+        GameEvents.P2NewOwnBasicWord.AddListener(P2NewBasicWord);
+        GameEvents.P1NewEnemyBasicWord.AddListener(P2NewBasicWord);
+
+        GameEvents.P1ShowSpecialAbility.AddListener(P1NewSpecialWord);
+        GameEvents.P2ShowSpecialAbility.AddListener(P2NewSpecialWord);
 
         code = new int[codeLength];
     }
@@ -27,10 +26,8 @@ public class CogeGeneration : MonoBehaviour
 
     private void Start()
     {
-        P1BasicWordCompleted();
-        P1SpecialWordCompleted();
-        P2BasicWordCompleted();
-        P2SpecialWordCompleted();
+        P1NewBasicWord();
+        P2NewBasicWord();
     }
 
 
@@ -42,25 +39,25 @@ public class CogeGeneration : MonoBehaviour
         }
     }
 
-    void P1BasicWordCompleted()
+    void P1NewBasicWord()
     {
         GenerateNewCode();
         GameEvents.P1NewBasicCode.Invoke(code);
     }
 
-    void P1SpecialWordCompleted()
+    void P1NewSpecialWord()
     {
         GenerateNewCode();
         GameEvents.P1NewSpecialCode.Invoke(code);
     }
 
-    void P2BasicWordCompleted()
+    void P2NewBasicWord()
     {
         GenerateNewCode();
         GameEvents.P2NewBasicCode.Invoke(code);
     }
 
-    void P2SpecialWordCompleted()
+    void P2NewSpecialWord()
     {
         GenerateNewCode();
         GameEvents.P2NewSpecialCode.Invoke(code);

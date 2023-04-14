@@ -117,15 +117,20 @@ public static class GameEvents
     public static IntEvent P1WrongPress = new IntEvent();
     public static IntEvent P2WrongPress = new IntEvent();
 
-    public static UnityEvent P1OwnBasicWordCompleted = new UnityEvent();
-    public static UnityEvent P2OwnBasicWordCompleted = new UnityEvent();
+    public static UnityEvent P1NewOwnBasicWord = new UnityEvent();
+    public static UnityEvent P2NewOwnBasicWord = new UnityEvent();
     public static UnityEvent P1OwnSpecialWordCompleted = new UnityEvent();
     public static UnityEvent P2OwnSpecialWordCompleted = new UnityEvent();
 
-    public static UnityEvent P1EnemyBasicWordCompleted = new UnityEvent();
-    public static UnityEvent P2EnemyBasicWordCompleted = new UnityEvent();
+    public static UnityEvent P1NewEnemyBasicWord = new UnityEvent();
+    public static UnityEvent P2NewEnemyBasicWord = new UnityEvent();
     public static UnityEvent P1EnemySpecialWordCompleted = new UnityEvent();
     public static UnityEvent P2EnemySpecialWordCompleted = new UnityEvent();
+
+    public static UnityEvent P1ShowSpecialAbility = new UnityEvent();
+    public static UnityEvent P1HideSpecialAbility = new UnityEvent();
+    public static UnityEvent P2ShowSpecialAbility = new UnityEvent();
+    public static UnityEvent P2HideSpecialAbility = new UnityEvent();
 
     public static IntEvent P1LvlChange = new IntEvent();
     public static IntEvent P2LvlChange = new IntEvent();

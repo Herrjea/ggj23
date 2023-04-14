@@ -1,9 +1,9 @@
 using UnityEngine;
 
 
-public class ThrashAbility : Ability
+public class MicroplasticSludgeAbility : Ability
 {
-    public ThrashAbility(int player) : base(player)
+    public MicroplasticSludgeAbility(int player) : base(player)
     {
     }
 
