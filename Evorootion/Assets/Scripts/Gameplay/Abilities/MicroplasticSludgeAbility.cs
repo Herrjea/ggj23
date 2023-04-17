@@ -15,6 +15,6 @@ public class MicroplasticSludgeAbility : Ability
 
     public override void EnemyTrigger()
     {
-        HurtSelf();
+        HurtSelf(1);
     }
 }

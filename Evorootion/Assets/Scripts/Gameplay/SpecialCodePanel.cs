@@ -78,6 +78,11 @@ public class SpecialCodePanel : CodePanel
         abilities = new List<Ability>();
         abilities.Add(new MicroplasticSludgeAbility(player));
         abilities.Add(new PoisonousDietAbility(player));
+        abilities.Add(new DnaDebuggingAbility(player));
+        abilities.Add(new DnaRemovalAbility(player));
+        abilities.Add(new SpikesAbility(player));
+        abilities.Add(new NicheDietAbility(player));
+        abilities.Add(new GenomeDuplicationAbility(player));
 
 
         // Start hidden
@@ -120,6 +125,8 @@ public class SpecialCodePanel : CodePanel
             abilities.Count
         );
         abilityIcon.sprite = abilities[currentAbility].icon;
+
+        print("Setting " + abilities[currentAbility].GetType().ToString() + " for player " + player);
     }
 
     IEnumerator AnimationCoroutine(bool showing)
