@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class SpikesAbility : Ability
+public class QuillsAbility : Ability
 {
-    public SpikesAbility(int player) : base(player)
+    public QuillsAbility(int player) : base(player)
     {
 
     }

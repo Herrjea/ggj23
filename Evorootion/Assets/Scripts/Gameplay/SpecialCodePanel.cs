@@ -80,7 +80,7 @@ public class SpecialCodePanel : CodePanel
         abilities.Add(new PoisonousDietAbility(player));
         abilities.Add(new DnaDebuggingAbility(player));
         abilities.Add(new DnaRemovalAbility(player));
-        abilities.Add(new SpikesAbility(player));
+        abilities.Add(new QuillsAbility(player));
         abilities.Add(new NicheDietAbility(player));
         abilities.Add(new GenomeDuplicationAbility(player));
 
