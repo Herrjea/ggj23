@@ -9,6 +9,9 @@ public class SpecialCodePanel : CodePanel
     [SerializeField] AnimationCurve animationEase;
     [SerializeField] float animationDuration = .5f;
 
+    int ownLevel = globals.startingLevel;
+    int enemyLevel = globals.startingLevel;
+
 
     protected override void Awake()
     {
@@ -58,6 +61,9 @@ public class SpecialCodePanel : CodePanel
 
             GameEvents.P1HideSpecialAbility.AddListener(HidePanel);
             GameEvents.P1ShowSpecialAbility.AddListener(ShowPanel);
+
+            GameEvents.P1LvlChange.AddListener(OwnLvlChange);
+            GameEvents.P2LvlChange.AddListener(EnemyLvlChange);
         }
         else if (player == 2)
         {
@@ -70,6 +76,9 @@ public class SpecialCodePanel : CodePanel
 
             GameEvents.P2HideSpecialAbility.AddListener(HidePanel);
             GameEvents.P2ShowSpecialAbility.AddListener(ShowPanel);
+
+            GameEvents.P1LvlChange.AddListener(EnemyLvlChange);
+            GameEvents.P2LvlChange.AddListener(OwnLvlChange);
         }
         else
             print("Undefined player number on object " + name + ": " + player);
@@ -77,16 +86,27 @@ public class SpecialCodePanel : CodePanel
 
         abilities = new List<Ability>();
         abilities.Add(new MicroplasticSludgeAbility(player));
-        abilities.Add(new PoisonousDietAbility(player));
-        abilities.Add(new DnaDebuggingAbility(player));
-        abilities.Add(new DnaRemovalAbility(player));
         abilities.Add(new QuillsAbility(player));
+        abilities.Add(new DnaDebuggingAbility(player));
+        abilities.Add(new PoisonousDietAbility(player));
+        abilities.Add(new DnaRemovalAbility(player));
         abilities.Add(new NicheDietAbility(player));
         abilities.Add(new GenomeDuplicationAbility(player));
 
 
         // Start hidden
         rectTransform.localScale = Vector3.zero;
+    }
+
+
+    void OwnLvlChange(int lvl)
+    {
+        ownLevel = lvl;
+    }
+
+    void EnemyLvlChange(int lvl)
+    {
+        enemyLevel = lvl;
     }
 
 
@@ -124,9 +144,24 @@ public class SpecialCodePanel : CodePanel
             0,
             abilities.Count
         );
+
+        if (ownLevel <= globals.lowThreshold)
+        {
+            //int a = currentAbility;
+            currentAbility = Mathf.Min(currentAbility + RandomInt(), abilities.Count - 1);
+            //print("change up from " + a + " to " + currentAbility);
+        }
+
+        if (enemyLevel >= globals.highThreshold)
+        {
+            //int a = currentAbility;
+            currentAbility = Mathf.Max(currentAbility - RandomInt(), 0);
+            //print("change down from " + a + " to " + currentAbility);
+        }
+
         abilityIcon.sprite = abilities[currentAbility].icon;
 
-        print("Setting " + abilities[currentAbility].GetType().ToString() + " for player " + player);
+        //print("Setting " + abilities[currentAbility].GetType().ToString() + " for player " + player);
     }
 
     IEnumerator AnimationCoroutine(bool showing)
@@ -150,5 +185,16 @@ public class SpecialCodePanel : CodePanel
 
             yield return null;
         }
+    }
+
+
+    int RandomInt()
+    {
+        float v = 0;
+
+        for (int i = 0; i < 3; i++)
+            v += Random.Range(0.0f, abilities.Count / 3);
+
+        return (int) v;
     }
 }

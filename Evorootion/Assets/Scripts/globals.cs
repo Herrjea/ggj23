@@ -11,5 +11,9 @@ public class globals
     public static int maxLevel = levelWedges * stepsPerLevel;
     public static int startingLevel = maxLevel / 2;
 
+    public static float thresholdPercentage = 0.4f;
+    public static float lowThreshold = maxLevel * thresholdPercentage;
+    public static float highThreshold = maxLevel * (1.0f - thresholdPercentage);
+
     public static int keyCount = 4;
 }
