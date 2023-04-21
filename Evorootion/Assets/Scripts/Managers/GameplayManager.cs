@@ -479,14 +479,16 @@ public class GameplayManager : MonoBehaviour
     {
         yield return new WaitForSeconds(Random.Range(specialAbilityMinCDTime, specialAbilityMaxCDTime));
 
-        ShowSpecialAbilityP1();
+        if (winner == -1)
+            ShowSpecialAbilityP1();
     }
 
     IEnumerator P2SpecialAbilityCDHandler()
     {
         yield return new WaitForSeconds(Random.Range(specialAbilityMinCDTime, specialAbilityMaxCDTime));
 
-        ShowSpecialAbilityP2();
+        if (winner == -1)
+            ShowSpecialAbilityP2();
     }
 
 
